@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreET"
+        android:layout_x="30dp"
+        android:layout_y="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nombre:"
+        android:id="@+id/textView2"
+        android:layout_x="30dp"
+        android:layout_y="15dp" />
+
+    <ListView
+        android:layout_width="220dp"
+        android:layout_height="94dp"
+        android:id="@+id/cuartosLV"
+        android:layout_x="95dp"
+        android:layout_y="118dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Número de Cuartos:"
+        android:id="@+id/textView3"
+        android:layout_x="30dp"
+        android:layout_y="90dp" />
+
+    <ImageView
+        android:layout_width="244dp"
+        android:layout_height="244dp"
+        android:id="@+id/casaIV"
+        android:layout_x="61dp"
+        android:layout_y="215dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar Configuración"
+        android:id="@+id/guardarBtn"
+        android:layout_x="97dp"
+        android:layout_y="458dp" />
+
+</AbsoluteLayout>
