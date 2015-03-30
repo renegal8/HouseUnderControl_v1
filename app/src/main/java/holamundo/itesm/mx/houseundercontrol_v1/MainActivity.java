@@ -1,6 +1,7 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     Button verconfig;
     String tname;
     String tcant;
+    Bitmap tphoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
                     Intent intent = new Intent(MainActivity.this, ver_configuracion.class);
                     intent.putExtra("nombre",tname);
                     intent.putExtra("cantidad",tcant);
+                    intent.putExtra("photo", tphoto);
                     startActivity(intent);
                 }
                 catch(Exception e){
@@ -70,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tname = data.getStringExtra("name");
             tcant = data.getStringExtra("cantidad");
+            tphoto = (Bitmap) data.getExtras().get("photo");
 
         }
     }
