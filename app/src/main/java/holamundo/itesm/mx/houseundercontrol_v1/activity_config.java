@@ -40,7 +40,7 @@ public class activity_config extends ActionBarActivity {
         cuartosLV.setOnItemClickListener(itemListener);
 
         cuartos = new String[]{
-                "1 Cuarto", "2 Cuartos", "3 Cuartos", "4 cuartos"
+                "1 Cuarto", "2 Cuartos", "3 Cuartos", "4 Cuartos"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.activity_row, R.id.rowTV, cuartos);
