@@ -20,6 +20,10 @@
             android:name=".activity_config"
             android:label="@string/title_activity_activity_config" >
         </activity>
+        <activity
+            android:name=".ver_configuracion"
+            android:label="@string/title_activity_ver_configuracion" >
+        </activity>
     </application>
 
 </manifest>

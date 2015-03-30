@@ -9,4 +9,7 @@
     <string name="ver_configuracion">Ver Configuracion</string>
     <string name="title_activity_activity_row">activity_row</string>
     <string name="title_activity_activity_config">activity_config</string>
+    <string name="title_activity_ver_configuracion">ver_configuracion</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
