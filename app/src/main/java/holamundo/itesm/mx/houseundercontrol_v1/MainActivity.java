@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
     String tname;
     String tcant;
     Bitmap tphoto;
+    String tphoto1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,8 @@ public class MainActivity extends ActionBarActivity {
                     Intent intent = new Intent(MainActivity.this, ver_configuracion.class);
                     intent.putExtra("nombre",tname);
                     intent.putExtra("cantidad",tcant);
-                    intent.putExtra("photo", tphoto);
+                    //intent.putExtra("photo", tphoto);
+                    intent.putExtra("photo", tphoto1);
                     startActivity(intent);
                 }
                 catch(Exception e){
@@ -73,7 +75,8 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tname = data.getStringExtra("name");
             tcant = data.getStringExtra("cantidad");
-            tphoto = (Bitmap) data.getExtras().get("photo");
+//            tphoto = (Bitmap) data.getExtras().get("photo");
+            tphoto1 = data.getStringExtra("photo");
 
         }
     }

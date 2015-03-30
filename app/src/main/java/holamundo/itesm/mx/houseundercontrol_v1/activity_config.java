@@ -28,6 +28,7 @@ public class activity_config extends ActionBarActivity {
     TextView cantCuartosTV;
     EditText nombreET;
     ImageView img;
+    Bitmap imageBP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class activity_config extends ActionBarActivity {
         cantCuartosTV = (TextView) findViewById(R.id.cantCuartosValueTV);
         nombreET = (EditText)findViewById(R.id.nombreValueET);
         guardarBtn = (Button) findViewById(R.id.botonGuardar);
-        img= (ImageView) findViewById(R.id.casaIV);
+        img = (ImageView) findViewById(R.id.casaIV);
 
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -46,16 +47,24 @@ public class activity_config extends ActionBarActivity {
                 String cantidad = ((TextView)view).getText().toString();
                 if(cantidad=="1"){
                     cantCuartosTV.setText("1");
-                    img.setImageResource(R.mipmap.casa1);}
+ //                   img.setImageResource(R.mipmap.casa1);
+                    imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa1);
+                    img.setImageBitmap(imageBP);}
                 else if(cantidad=="2"){
                     cantCuartosTV.setText("2");
-                    img.setImageResource(R.mipmap.casa2);}
+//                    img.setImageResource(R.mipmap.casa2);
+                    imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa2);
+                    img.setImageBitmap(imageBP);}
                 else if(cantidad=="3"){
                     cantCuartosTV.setText("3");
-                    img.setImageResource(R.mipmap.casa3);}
+//                    img.setImageResource(R.mipmap.casa3);
+                    imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa3);
+                    img.setImageBitmap(imageBP);}
                 else if(cantidad=="4"){
                     cantCuartosTV.setText("4");
-                    img.setImageResource(R.mipmap.casa4);}
+//                    img.setImageResource(R.mipmap.casa4);
+                    imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa4);
+                    img.setImageBitmap(imageBP);}
 
             }
         };
@@ -69,8 +78,6 @@ public class activity_config extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.activity_row, R.id.rowTV, cuartos);
 
         cuartosLV.setAdapter(adapter);
-
-
 
 
         guardarBtn.setOnClickListener(new View.OnClickListener(){
@@ -87,6 +94,8 @@ public class activity_config extends ActionBarActivity {
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("name", nombreET.getText().toString());
                         returnIntent.putExtra("cantidad", cantCuartosTV.getText().toString());
+//                        returnIntent.putExtra("photo", imageBP);
+                        returnIntent.putExtra("photo", cantCuartosTV.getText().toString());
                         setResult(RESULT_OK, returnIntent);
                         Toast.makeText(getApplicationContext(), "Configuracion Correcta", Toast.LENGTH_SHORT).show();
                         finish();
