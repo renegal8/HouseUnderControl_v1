@@ -27,6 +27,7 @@ public class activity_config extends ActionBarActivity {
     Button guardarBtn;
     TextView cantCuartosTV;
     EditText nombreET;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +38,24 @@ public class activity_config extends ActionBarActivity {
         cantCuartosTV = (TextView) findViewById(R.id.cantCuartosValueTV);
         nombreET = (EditText)findViewById(R.id.nombreValueET);
         guardarBtn = (Button) findViewById(R.id.botonGuardar);
+        img= (ImageView) findViewById(R.id.casaIV);
 
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String cantidad = ((TextView)view).getText().toString();
                 if(cantidad=="1"){
-                    cantCuartosTV.setText("1");}
+                    cantCuartosTV.setText("1");
+                    img.setImageResource(R.mipmap.casa1);}
                 else if(cantidad=="2"){
-                    cantCuartosTV.setText("2");}
+                    cantCuartosTV.setText("2");
+                    img.setImageResource(R.mipmap.casa2);}
                 else if(cantidad=="3"){
-                    cantCuartosTV.setText("3");}
+                    cantCuartosTV.setText("3");
+                    img.setImageResource(R.mipmap.casa3);}
                 else if(cantidad=="4"){
-                    cantCuartosTV.setText("4");}
+                    cantCuartosTV.setText("4");
+                    img.setImageResource(R.mipmap.casa4);}
 
             }
         };
@@ -64,8 +70,6 @@ public class activity_config extends ActionBarActivity {
 
         cuartosLV.setAdapter(adapter);
 
-        ImageView img= (ImageView) findViewById(R.id.casaIV);
-        img.setImageResource(R.mipmap.casa1);
 
 
 

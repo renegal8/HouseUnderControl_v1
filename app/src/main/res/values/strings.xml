@@ -11,7 +11,7 @@
     <string name="title_activity_activity_config">activity_config</string>
     <string name="title_activity_ver_configuracion">ver_configuracion</string>
     <string name="nombre">Nombre:</string>
-    <string name="cantidad">Cantidad:</string>
+    <string name="cantidad">Cantidad de Cuartos:</string>
     <string name="guardar">Guardar Configuracion</string>
 
     <string name="hello_world">Hello world!</string>
