@@ -1,76 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <EditText
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:id="@+id/nombreET"
+        android:layout_x="30dp"
+        android:layout_y="40dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/nombre"
-            android:id="@+id/nombreTV"
-            android:layout_x="30dp"
-            android:layout_y="15dp" />
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/nombreValueET"
-            android:layout_x="30dp"
-            android:layout_y="40dp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/cantidad"
-            android:id="@+id/cantCuartosTV"
-            android:layout_x="30dp"
-            android:layout_y="90dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/cantCuartosValueTV"
-            android:layout_marginLeft="30dp"/>
-    </LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nombre:"
+        android:id="@+id/textView2"
+        android:layout_x="30dp"
+        android:layout_y="15dp" />
 
     <ListView
         android:layout_width="220dp"
         android:layout_height="94dp"
         android:id="@+id/cuartosLV"
         android:layout_x="95dp"
-        android:layout_y="118dp"/>
+        android:layout_y="118dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Número de Cuartos:"
+        android:id="@+id/textView3"
+        android:layout_x="30dp"
+        android:layout_y="90dp" />
 
     <ImageView
         android:layout_width="244dp"
         android:layout_height="244dp"
         android:id="@+id/casaIV"
         android:layout_x="61dp"
-        android:layout_y="215dp"/>
+        android:layout_y="215dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/guardar"
-        android:id="@+id/botonGuardar"
+        android:text="Guardar Configuración"
+        android:id="@+id/guardarBtn"
         android:layout_x="97dp"
-        android:layout_y="458dp"
-        android:layout_marginLeft="75dp"/>
+        android:layout_y="458dp" />
 
-</LinearLayout>
+</AbsoluteLayout>

@@ -7,44 +7,13 @@
     android:orientation="vertical"
     tools:context="holamundo.itesm.mx.houseundercontrol_v1.ver_configuracion">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nombre"
-            android:id="@+id/nombreTV" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/nombreValueTV"
-            android:layout_marginLeft="40dp"/>
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cantidad"
-            android:id="@+id/cantidadTV" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/cantidadValueTV"
-            android:layout_marginLeft="40dp"/>
-
-        </LinearLayout>
+        android:text="New Text"
+        android:id="@+id/textView4" />
 
 </LinearLayout>
