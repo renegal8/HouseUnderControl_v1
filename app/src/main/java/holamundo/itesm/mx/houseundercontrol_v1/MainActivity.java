@@ -24,10 +24,10 @@ public class MainActivity extends ActionBarActivity {
     String LOG_TAG = "MainActivity";
     Button config;
     Button verconfig;
-    String tname;
-    String tcant;
+    String tname="";
+    String tcant="";
     Bitmap tphoto;
-    String tphoto1;
+    String tphoto1="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

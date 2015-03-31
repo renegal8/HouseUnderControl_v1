@@ -27,27 +27,29 @@ public class ver_configuracion extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         String n = bundle.getString("nombre");
-        String c =bundle.getString("cantidad");
+        String c = bundle.getString("cantidad");
 //        imagenBP = (Bitmap) bundle.getParcelable("photo");
 //        casaIV.setImageBitmap(imagenBP);
         String photo = bundle.getString("photo");
 
         nombreTV.setText(n);
         cantidadTV.setText(c);
+        if (!photo.matches("")) {
 
-        if(photo.equals("1")){
+        if (photo.equals("1")) {
             imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa1);
             casaIV.setImageBitmap(imageBP);
-        } else if(photo.equals("2")){
-            imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa2);
+        } else if (photo.equals("2")) {
+            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa2);
             casaIV.setImageBitmap(imageBP);
-        } else if(photo.equals("3")){
-            imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa3);
+        } else if (photo.equals("3")) {
+            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa3);
             casaIV.setImageBitmap(imageBP);
-        } else if(photo.equals("4")){
-            imageBP = BitmapFactory.decodeResource(getResources(),R.mipmap.casa4);
+        } else if (photo.equals("4")) {
+            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa4);
             casaIV.setImageBitmap(imageBP);
         }
+    }
 //
 
     }
