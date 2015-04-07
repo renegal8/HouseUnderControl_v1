@@ -7,4 +7,5 @@
     android:id="@+id/rowTV"
     android:layout_weight="1.07"
     android:layout_marginLeft="30dp"
+    android:textSize="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android" />
