@@ -24,6 +24,10 @@
             android:name=".ver_configuracion"
             android:label="@string/title_activity_ver_configuracion" >
         </activity>
+        <activity
+            android:name=".MonitoreoActivity"
+            android:label="@string/title_activity_monitoreo" >
+        </activity>
     </application>
 
 </manifest>

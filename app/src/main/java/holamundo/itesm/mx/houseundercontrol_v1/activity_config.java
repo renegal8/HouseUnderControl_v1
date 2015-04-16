@@ -2,6 +2,7 @@ package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class activity_config extends ActionBarActivity {
     String LOG_TAG = "ConfigurarActivity";
@@ -36,6 +42,10 @@ public class activity_config extends ActionBarActivity {
 
     int index;
 
+    private HouseOperations dao;
+    private HouseHelper dbHelper;
+    private SQLiteDatabase db;
+
     private static final Integer[] cuarto1 = { R.mipmap.casa1};
     private static final Integer[] cuarto2 = { R.mipmap.casa2,R.mipmap.casa2_2};
     private static final Integer[] cuarto3 = { R.mipmap.casa3};
@@ -46,6 +56,8 @@ public class activity_config extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_config);
+
+        dao = new HouseOperations(getApplicationContext());
 
         MyGestureDetector myGestureDetector = new MyGestureDetector();
         final GestureDetector gestureDetector = new GestureDetector(this, myGestureDetector);
@@ -107,18 +119,20 @@ public class activity_config extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "Faltan Datos por Llenar", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    try {
-                        Intent returnIntent = new Intent();
+                //    try {
+                        /*Intent returnIntent = new Intent();
                         returnIntent.putExtra("name", nombreET.getText().toString());
                         returnIntent.putExtra("cantidad", cantCuartosTV.getText().toString());
 //                        returnIntent.putExtra("photo", imageBP);
                         returnIntent.putExtra("photo", cantCuartosTV.getText().toString());
                         setResult(RESULT_OK, returnIntent);
                         Toast.makeText(getApplicationContext(), "Configuracion Correcta", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } catch (Exception e) {
+                        finish(); */
+
+                        newHouse(v);
+               /*     } catch (Exception e) {
                         Log.e(LOG_TAG, "Failed to send intent", e);
-                    }
+                    } */
                 }
             }
         });
@@ -132,21 +146,70 @@ public class activity_config extends ActionBarActivity {
         });
     }
 
+    public void newHouse(View view){
+
+        String name = nombreET.getText().toString();
+        int cantCuartos = Integer.parseInt(cantCuartosTV.getText().toString());
+        int idFoto = index;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        //bp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        imageBP.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteImage = stream.toByteArray();
+
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time =&gt; "+c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = df.format(c.getTime());
+
+        //Toast.makeText(this, name+" "+cantCuartos+" "+byteImage+" "+idFoto+" "+fecha, Toast.LENGTH_SHORT).show();
+
+
+        House house = new House(name , cantCuartos, byteImage, idFoto, fecha);
+        dao.addHouse(house);
+
+        Toast.makeText(getApplicationContext(), "Casa Agregada Exitosamente", Toast.LENGTH_SHORT).show();
+
+
+        finish();
+
+    }
+
+    @Override
+    protected void onResume(){
+        try {
+            dao.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        dao.close();
+        super.onPause();
+    }
+
+
+
     class MyGestureDetector implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
         @Override
-        public boolean onDown(MotionEvent event){
+        public boolean onDown(MotionEvent event) {
             Log.d(DEBUG_TAG, "onDown: " + event.toString());
             return true;
 
         }
+
 
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
             Toast.makeText(activity_config.this, "onFling", Toast.LENGTH_SHORT).show();
             //Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
 
-            if (event1.getX() < event2.getX()){
+            if (event1.getX() < event2.getX()) {
                 Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                 index = index - 1;
                 if (index < 0) {
@@ -166,23 +229,29 @@ public class activity_config extends ActionBarActivity {
 
                     }
                 }
-                Drawable d = getResources().getDrawable(R.mipmap.casa1);
+                //Drawable d = getResources().getDrawable(R.mipmap.casa1);
                 switch (Integer.parseInt(cantCuartosTV.getText().toString())) {
                     case 1:
-                        d = getResources().getDrawable(cuarto1[index]);
+                        //d = getResources().getDrawable(cuarto1[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto1[index]);
                         break;
                     case 2:
-                        d = getResources().getDrawable(cuarto2[index]);
+                        //d = getResources().getDrawable(cuarto2[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto2[index]);
                         break;
                     case 3:
-                        d = getResources().getDrawable(cuarto3[index]);
+                        //d = getResources().getDrawable(cuarto3[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto3[index]);
                         break;
                     case 4:
-                        d = getResources().getDrawable(cuarto4[index]);
+                        //d = getResources().getDrawable(cuarto4[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto4[index]);
                         break;
                     //Drawable d = getResources().getDrawable(imagenes[index]);
                 }
-                img.setImageDrawable(d);
+
+                //img.setImageDrawable(d);
+                img.setImageBitmap(imageBP);
             }
 
             if (event1.getX() > event2.getX()) {
@@ -203,27 +272,32 @@ public class activity_config extends ActionBarActivity {
                         cantSel = cuarto4.length;
                         break;
                 }
-                if (index > (cantSel-1))
+                if (index > (cantSel - 1))
                     index = 0;
 
-               // Drawable e= getResources().getDrawable(arrT[index]);
-                Drawable e = getResources().getDrawable(R.mipmap.casa1);;
+                //Drawable e = getResources().getDrawable(R.mipmap.casa1);
+                ;
                 switch (Integer.parseInt(cantCuartosTV.getText().toString())) {
                     case 1:
-                        e = getResources().getDrawable(cuarto1[index]);
+                        //e = getResources().getDrawable(cuarto1[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto1[index]);
                         break;
                     case 2:
-                        e = getResources().getDrawable(cuarto2[index]);
+                        //e = getResources().getDrawable(cuarto2[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto2[index]);
                         break;
                     case 3:
-                        e = getResources().getDrawable(cuarto3[index]);
+                        //e = getResources().getDrawable(cuarto3[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto3[index]);
                         break;
                     case 4:
-                        e = getResources().getDrawable(cuarto4[index]);
+                        //e = getResources().getDrawable(cuarto4[index]);
+                        imageBP = BitmapFactory.decodeResource(getResources(),cuarto4[index]);
                         break;
                 }
-                    //Drawable d = getResources().getDrawable(imagenes[index]);
-                    img.setImageDrawable(e);
+
+                //img.setImageDrawable(e);
+                img.setImageBitmap(imageBP);
 
             }
 
@@ -231,51 +305,59 @@ public class activity_config extends ActionBarActivity {
         }
 
         @Override
-        public void onShowPress(MotionEvent event){
+        public void onShowPress(MotionEvent event) {
             Toast.makeText(activity_config.this, "onShowPress", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onShowPress: " + event.toString());
         }
 
         @Override
-        public boolean onSingleTapUp(MotionEvent event){
+        public boolean onSingleTapUp(MotionEvent event) {
             Toast.makeText(activity_config.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onSingleTapUp: " + event.toString());
             return true;
         }
 
         @Override
-        public boolean onDoubleTap(MotionEvent event){
+        public boolean onDoubleTap(MotionEvent event) {
             Toast.makeText(activity_config.this, "onDoubleTap", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onDoubleTap: " + event.toString());
             return true;
         }
 
         @Override
-        public boolean onDoubleTapEvent(MotionEvent event){
+        public boolean onDoubleTapEvent(MotionEvent event) {
             Toast.makeText(activity_config.this, "onDoubleTapEvent", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onDoubleTapEvent: " + event.toString());
             return true;
         }
 
         @Override
-        public boolean onScroll(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY){
-           // Toast.makeText(activity_config.this, "onScroll", Toast.LENGTH_SHORT).show();
+        public boolean onScroll(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+            // Toast.makeText(activity_config.this, "onScroll", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         @Override
-        public boolean onSingleTapConfirmed(MotionEvent event){
+        public boolean onSingleTapConfirmed(MotionEvent event) {
             Toast.makeText(activity_config.this, "onSingleTapConfirmed", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         @Override
-        public void onLongPress(MotionEvent event){
+        public void onLongPress(MotionEvent event) {
             Toast.makeText(activity_config.this, "onLongPress", Toast.LENGTH_SHORT).show();
             Toast.makeText(activity_config.this, "onLongPress", Toast.LENGTH_SHORT).show();
 
         }
+
+
     }
 
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "Operacion Cancelada", Toast.LENGTH_SHORT).show();
+        return;
+    }
 
 }

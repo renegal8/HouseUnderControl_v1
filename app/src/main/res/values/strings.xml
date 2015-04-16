@@ -15,4 +15,5 @@
     <string name="guardar">Guardar Configuracion</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_monitoreo">MonitoreoActivity</string>
 </resources>

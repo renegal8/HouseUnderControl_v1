@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
     String LOG_TAG = "MainActivity";
     Button config;
     Button verconfig;
+    Button monitoreoBtn;
     String tname="";
     String tcant="";
     Bitmap tphoto;
@@ -36,14 +37,15 @@ public class MainActivity extends ActionBarActivity {
 
         config = (Button) findViewById(R.id.boton_configuracion);
         verconfig = (Button) findViewById(R.id.boton_verconfiguracion);
+        monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
 
         config.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 try {
-                    Intent intent = new Intent(MainActivity.this, activity_config.class);
-                    startActivityForResult(intent, 1);
+                    Intent configIntent = new Intent(MainActivity.this, activity_config.class);
+                    startActivityForResult(configIntent, 1);
                 }
                 catch(Exception e){
                     Log.e(LOG_TAG, "Failed to send intent", e);
@@ -55,12 +57,25 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(MainActivity.this, ver_configuracion.class);
-                    intent.putExtra("nombre",tname);
+                    Intent verIntent = new Intent(MainActivity.this, ver_configuracion.class);
+                    /*intent.putExtra("nombre",tname);
                     intent.putExtra("cantidad",tcant);
                     //intent.putExtra("photo", tphoto);
-                    intent.putExtra("photo", tphoto1);
-                    startActivity(intent);
+                    intent.putExtra("photo", tphoto1); */
+                    startActivity(verIntent);
+                }
+                catch(Exception e){
+                    Log.e(LOG_TAG, "Failed to send intent", e);
+                }
+            }
+        });
+
+        monitoreoBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent monitoreoIntent = new Intent(MainActivity.this, MonitoreoActivity.class);
+                    startActivity(monitoreoIntent);
                 }
                 catch(Exception e){
                     Log.e(LOG_TAG, "Failed to send intent", e);
