@@ -42,10 +42,16 @@
         android:layout_marginTop="50dp"/>
 
     <Button
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Monitorear"
         android:id="@+id/monitoreoBtn" />
+
+    <Button
+        android:layout_width="337dp"
+        android:layout_height="wrap_content"
+        android:text="Localizar Casa"
+        android:id="@+id/localizarBtn" />
 
 </LinearLayout>
 

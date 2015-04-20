@@ -27,6 +27,7 @@ public class ver_configuracion extends ActionBarActivity {
     byte[] foto;
     int idFoto;
     String fecha;
+    String address;
 
     HouseOperations dao;
     List<House> house;
@@ -44,6 +45,7 @@ public class ver_configuracion extends ActionBarActivity {
         dao = new HouseOperations(getApplicationContext());
 
         TextView nombreTV = (TextView) findViewById(R.id.nombreValueTV);
+        TextView addressTV = (TextView) findViewById(R.id.addressValueTV);
         TextView cantidadTV = (TextView) findViewById(R.id.cantidadValueTV);
         casaIV = (ImageView) findViewById(R.id.casaIV);
 
@@ -59,12 +61,14 @@ public class ver_configuracion extends ActionBarActivity {
                 byte[] foto = house.get(i).getFoto();
                 int idFoto = house.get(i).getId();
                 String fecha = house.get(i).getFecha();
+                String address = house.get(i).getAddress();
             //}
         //}
 
         fotoBit = BitmapFactory.decodeByteArray(foto, 0, foto.length);
 
         nombreTV.setText(name);
+        addressTV.setText(address);
         cantidadTV.setText(cantCuartos);
         casaIV.setImageBitmap(fotoBit);
 

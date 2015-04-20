@@ -10,22 +10,25 @@ public class House {
     private byte[] foto;
     private int idFoto;
     private String fecha;
+    private String address;
 
-    public House(int id, String name, int cantCuartos, byte[] foto, int idFoto, String fecha) {
+    public House(int id, String name, int cantCuartos, byte[] foto, int idFoto, String fecha, String address) {
         this.id = id;
         this.name = name;
         this.cantCuartos = cantCuartos;
         this.foto = foto;
         this.idFoto = idFoto;
         this.fecha = fecha;
+        this.address = address;
     }
 
-    public House(String name, int cantCuartos, byte[] foto, int idFoto, String fecha) {
+    public House(String name, int cantCuartos, byte[] foto, int idFoto, String fecha, String address) {
         this.name = name;
         this.cantCuartos = cantCuartos;
         this.foto = foto;
         this.idFoto = idFoto;
         this.fecha = fecha;
+        this.address = address;
     }
 
     public int getId() {
@@ -74,5 +77,13 @@ public class House {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

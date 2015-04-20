@@ -18,6 +18,7 @@ public class HouseHelper extends SQLiteOpenHelper{
     private static final String COLUMN_FOTO = "foto";
     private static final String COLUMN_ID_FOTO = "idFoto";
     private static final String COLUMN_FECHA = "fecha";
+    private static final String COLUMN_ADDRESS = "address";
 
     public HouseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,7 +28,7 @@ public class HouseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase arg0){
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE "+TABLE_PRODUCT+"(" + COLUMN_ID + " INTEGER PRIMARY KEY, " +
                 COLUMN_NAME + " TEXT, " + COLUMN_CANT + " INTEGER," + COLUMN_FOTO+" BLOB, "
-                + COLUMN_ID_FOTO + " INTEGER, "+COLUMN_FECHA+" TEXT)";
+                + COLUMN_ID_FOTO + " INTEGER, "+COLUMN_FECHA+" TEXT, "+COLUMN_ADDRESS+" TEXT)";
         arg0.execSQL(CREATE_PRODUCTS_TABLE);
     }
 

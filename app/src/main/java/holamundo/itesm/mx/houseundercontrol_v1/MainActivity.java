@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     Button config;
     Button verconfig;
     Button monitoreoBtn;
+    Button localizarBtn;
     String tname="";
     String tcant="";
     Bitmap tphoto;
@@ -38,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
         config = (Button) findViewById(R.id.boton_configuracion);
         verconfig = (Button) findViewById(R.id.boton_verconfiguracion);
         monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
+        localizarBtn = (Button) findViewById(R.id.localizarBtn);
 
         config.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -76,6 +78,20 @@ public class MainActivity extends ActionBarActivity {
                 try {
                     Intent monitoreoIntent = new Intent(MainActivity.this, MonitoreoActivity.class);
                     startActivity(monitoreoIntent);
+                }
+                catch(Exception e){
+                    Log.e(LOG_TAG, "Failed to send intent", e);
+                }
+            }
+        });
+
+        localizarBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    Intent mapaIntent = new Intent(MainActivity.this, MapActivity.class);
+                    startActivity(mapaIntent);
                 }
                 catch(Exception e){
                     Log.e(LOG_TAG, "Failed to send intent", e);
