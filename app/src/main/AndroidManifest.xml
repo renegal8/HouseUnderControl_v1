@@ -28,6 +28,12 @@
             android:name=".MonitoreoActivity"
             android:label="@string/title_activity_monitoreo" >
         </activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

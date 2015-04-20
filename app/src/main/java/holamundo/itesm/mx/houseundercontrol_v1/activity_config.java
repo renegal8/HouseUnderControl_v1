@@ -37,6 +37,7 @@ public class activity_config extends ActionBarActivity {
     Button guardarBtn;
     TextView cantCuartosTV;
     EditText nombreET;
+    EditText addressET;
     ImageView img;
     Bitmap imageBP;
 
@@ -66,6 +67,7 @@ public class activity_config extends ActionBarActivity {
         ListView cuartosLV = (ListView) findViewById(R.id.cuartosLV);
         cantCuartosTV = (TextView) findViewById(R.id.cantCuartosValueTV);
         nombreET = (EditText)findViewById(R.id.nombreValueET);
+        addressET = (EditText)findViewById(R.id.addressET);
         guardarBtn = (Button) findViewById(R.id.botonGuardar);
         img = (ImageView) findViewById(R.id.casaIV);
 
@@ -155,6 +157,7 @@ public class activity_config extends ActionBarActivity {
         //bp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         imageBP.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteImage = stream.toByteArray();
+        String address = addressET.getText().toString();
 
         Calendar c = Calendar.getInstance();
         System.out.println("Current time =&gt; "+c.getTime());
@@ -165,7 +168,7 @@ public class activity_config extends ActionBarActivity {
         //Toast.makeText(this, name+" "+cantCuartos+" "+byteImage+" "+idFoto+" "+fecha, Toast.LENGTH_SHORT).show();
 
 
-        House house = new House(name , cantCuartos, byteImage, idFoto, fecha);
+        House house = new House(name , cantCuartos, byteImage, idFoto, fecha, address);
         dao.addHouse(house);
 
         Toast.makeText(getApplicationContext(), "Casa Agregada Exitosamente", Toast.LENGTH_SHORT).show();

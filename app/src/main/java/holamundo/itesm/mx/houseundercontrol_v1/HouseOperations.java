@@ -23,6 +23,7 @@ public class HouseOperations {
     private static final String COLUMN_FOTO = "foto";
     private static final String COLUMN_ID_FOTO = "idFoto";
     private static final String COLUMN_FECHA = "fecha";
+    private static final String COLUMN_ADDRESS = "ADDRESS";
 
     Context context1;
 
@@ -48,6 +49,7 @@ public class HouseOperations {
         values.put(COLUMN_FOTO, house.getFoto());
         values.put(COLUMN_ID_FOTO, house.getIdFoto());
         values.put(COLUMN_FECHA, house.getFecha());
+        values.put(COLUMN_ADDRESS, house.getAddress());
 
         db.insert(TABLE_PRODUCT, null, values);
     }
@@ -67,7 +69,8 @@ public class HouseOperations {
                     Integer.parseInt(cursor.getString(2)),
                     cursor.getBlob(3),
                     Integer.parseInt(cursor.getString(4)),
-                    cursor.getString(5));
+                    cursor.getString(5),
+                    cursor.getString(6));
             cursor.close();
         } else {
             product =  null;
@@ -93,7 +96,8 @@ public class HouseOperations {
                         Integer.parseInt(cursor.getString(2)),
                         cursor.getBlob(3),
                         Integer.parseInt(cursor.getString(4)),
-                        cursor.getString(5));
+                        cursor.getString(5),
+                        cursor.getString(6));
                 //Toast.makeText(context1, cursor.getString(0), Toast.LENGTH_SHORT).show();
                 listaProducts.add(product);
 
@@ -123,7 +127,8 @@ public class HouseOperations {
                         Integer.parseInt(cursor.getString(2)),
                         cursor.getBlob(3),
                         Integer.parseInt(cursor.getString(4)),
-                        cursor.getString(5));
+                        cursor.getString(5),
+                        cursor.getString(6));
                 //Toast.makeText(context1, cursor.getString(0), Toast.LENGTH_SHORT).show();
                 listaHouses.add(product);
 

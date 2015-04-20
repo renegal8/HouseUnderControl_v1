@@ -11,8 +11,32 @@
             android:text="@string/nombre"
             android:id="@+id/nombreTV"
             android:layout_x="15dp"
-            android:layout_y="42dp" />
+            android:layout_y="22dp" />
 
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreValueET"
+        android:layout_x="127dp"
+        android:layout_y="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Direccion:"
+        android:id="@+id/textView"
+        android:layout_x="15dp"
+        android:layout_y="71dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/addressET"
+        android:layout_x="122dp"
+        android:layout_y="69dp" />
 
         <TextView
             android:layout_width="57dp"
@@ -21,21 +45,21 @@
             android:id="@+id/cantCuartosValueTV"
             android:layout_marginLeft="30dp"
             android:layout_x="239dp"
-            android:layout_y="87dp" />
+            android:layout_y="107dp" />
 
     <ListView
         android:layout_width="140dp"
         android:layout_height="103dp"
         android:id="@+id/cuartosLV"
         android:layout_x="100dp"
-        android:layout_y="125dp"/>
+        android:layout_y="145dp"/>
 
     <ImageView
         android:layout_width="244dp"
         android:layout_height="244dp"
         android:id="@+id/casaIV"
         android:layout_x="61dp"
-        android:layout_y="235dp"/>
+        android:layout_y="255dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -43,15 +67,10 @@
         android:text="@string/guardar"
         android:id="@+id/botonGuardar"
         android:layout_x="97dp"
-        android:layout_y="480dp"
+        android:layout_y="500dp"
         android:layout_marginLeft="75dp"/>
 
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/nombreValueET"
-        android:layout_x="127dp"
-        android:layout_y="40dp" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,6 +79,9 @@
         android:text="@string/cantidad"
         android:id="@+id/cantCuartosTV"
         android:layout_x="15dp"
-        android:layout_y="87dp" />
+        android:layout_y="107dp" />
+
+
+
 
 </AbsoluteLayout>
