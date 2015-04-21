@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TableRow>
+        <TextView
+
+            android:id="@+id/actualTV"
+            android:text="@string/actual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/temperatura"
+            android:id="@+id/actualValorTV"
+            android:layout_column="1" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:id="@+id/maximaTV"
+            android:text="@string/maxima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/tempMaxima"
+            android:id="@+id/maximaValueTV"
+            android:layout_column="1" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minima"
+            android:id="@+id/minimaTV"
+            android:layout_column="0"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/tempMinima"
+            android:id="@+id/minimaValueTV"
+            android:layout_column="1" />
+    </TableRow>
+
+</TableLayout>

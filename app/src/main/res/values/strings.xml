@@ -20,4 +20,12 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_ver_todos">Ver Configuraciones</string>
     <string name="title_activity_ver_alarmas">ver_alarmas</string>
+    <string name="title_activity_monitoreo__servidor">monitoreo_Servidor</string>
+    <string name="tituloClima">Climas</string>
+    <string name="actual">actual</string>
+    <string name="maxima">Máxima</string>
+    <string name="minima">Minima</string>
+    <string name="temperatura">temperatura Actual</string>
+    <string name="tempMaxima">temperatura maxima</string>
+    <string name="tempMinima">temperatura minima</string>
 </resources>
