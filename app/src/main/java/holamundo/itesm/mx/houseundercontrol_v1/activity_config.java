@@ -47,10 +47,10 @@ public class activity_config extends ActionBarActivity {
     private HouseHelper dbHelper;
     private SQLiteDatabase db;
 
-    private static final Integer[] cuarto1 = { R.mipmap.casa1};
-    private static final Integer[] cuarto2 = { R.mipmap.casa2,R.mipmap.casa2_2};
-    private static final Integer[] cuarto3 = { R.mipmap.casa3};
-    private static final Integer[] cuarto4 = { R.mipmap.casa4};
+    private static final Integer[] cuarto1 = { R.mipmap.casa1,R.mipmap.casa1_2};
+    private static final Integer[] cuarto2 = { R.mipmap.casa2,R.mipmap.casa2_2,R.mipmap.casa2_3};
+    private static final Integer[] cuarto3 = { R.mipmap.casa3,R.mipmap.casa3_2};
+    private static final Integer[] cuarto4 = { R.mipmap.casa4,R.mipmap.casa4_2};
     private static final Integer[] arrT = new Integer[10];
 
     @Override
@@ -121,20 +121,7 @@ public class activity_config extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "Faltan Datos por Llenar", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                //    try {
-                        /*Intent returnIntent = new Intent();
-                        returnIntent.putExtra("name", nombreET.getText().toString());
-                        returnIntent.putExtra("cantidad", cantCuartosTV.getText().toString());
-//                        returnIntent.putExtra("photo", imageBP);
-                        returnIntent.putExtra("photo", cantCuartosTV.getText().toString());
-                        setResult(RESULT_OK, returnIntent);
-                        Toast.makeText(getApplicationContext(), "Configuracion Correcta", Toast.LENGTH_SHORT).show();
-                        finish(); */
-
                         newHouse(v);
-               /*     } catch (Exception e) {
-                        Log.e(LOG_TAG, "Failed to send intent", e);
-                    } */
                 }
             }
         });
@@ -165,8 +152,6 @@ public class activity_config extends ActionBarActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = df.format(c.getTime());
 
-        //Toast.makeText(this, name+" "+cantCuartos+" "+byteImage+" "+idFoto+" "+fecha, Toast.LENGTH_SHORT).show();
-
 
         House house = new House(name , cantCuartos, byteImage, idFoto, fecha, address);
         dao.addHouse(house);
@@ -196,7 +181,6 @@ public class activity_config extends ActionBarActivity {
     }
 
 
-
     class MyGestureDetector implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
         @Override
@@ -209,11 +193,11 @@ public class activity_config extends ActionBarActivity {
 
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-            Toast.makeText(activity_config.this, "onFling", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity_config.this, "onFling", Toast.LENGTH_SHORT).show();
             //Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
 
             if (event1.getX() < event2.getX()) {
-                Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                 index = index - 1;
                 if (index < 0) {
                     switch (Integer.parseInt(cantCuartosTV.getText().toString())) {
@@ -258,7 +242,7 @@ public class activity_config extends ActionBarActivity {
             }
 
             if (event1.getX() > event2.getX()) {
-                Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
                 index = index + 1;
                 int cantSel = 0;
                 switch (Integer.parseInt(cantCuartosTV.getText().toString())) {
@@ -309,27 +293,27 @@ public class activity_config extends ActionBarActivity {
 
         @Override
         public void onShowPress(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onShowPress", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity_config.this, "onShowPress", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onShowPress: " + event.toString());
         }
 
         @Override
         public boolean onSingleTapUp(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(activity_config.this, "onSingleTapUp", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onSingleTapUp: " + event.toString());
             return true;
         }
 
         @Override
         public boolean onDoubleTap(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onDoubleTap", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity_config.this, "onDoubleTap", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onDoubleTap: " + event.toString());
             return true;
         }
 
         @Override
         public boolean onDoubleTapEvent(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onDoubleTapEvent", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(activity_config.this, "onDoubleTapEvent", Toast.LENGTH_SHORT).show();
             Log.d(DEBUG_TAG, "onDoubleTapEvent: " + event.toString());
             return true;
         }
@@ -342,14 +326,13 @@ public class activity_config extends ActionBarActivity {
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onSingleTapConfirmed", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(activity_config.this, "onSingleTapConfirmed", Toast.LENGTH_SHORT).show();
             return true;
         }
 
         @Override
         public void onLongPress(MotionEvent event) {
-            Toast.makeText(activity_config.this, "onLongPress", Toast.LENGTH_SHORT).show();
-            Toast.makeText(activity_config.this, "onLongPress", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity_config.this, "onLongPress", Toast.LENGTH_SHORT).show();
 
         }
 

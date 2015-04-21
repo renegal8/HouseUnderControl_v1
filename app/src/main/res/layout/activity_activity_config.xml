@@ -55,19 +55,19 @@
         android:layout_y="145dp"/>
 
     <ImageView
-        android:layout_width="244dp"
-        android:layout_height="244dp"
+        android:layout_width="161dp"
+        android:layout_height="161dp"
         android:id="@+id/casaIV"
-        android:layout_x="61dp"
-        android:layout_y="255dp"/>
+        android:layout_x="100dp"
+        android:layout_y="259dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/guardar"
         android:id="@+id/botonGuardar"
-        android:layout_x="97dp"
-        android:layout_y="500dp"
+        android:layout_x="83dp"
+        android:layout_y="439dp"
         android:layout_marginLeft="75dp"/>
 
 
@@ -80,8 +80,6 @@
         android:id="@+id/cantCuartosTV"
         android:layout_x="15dp"
         android:layout_y="107dp" />
-
-
 
 
 </AbsoluteLayout>

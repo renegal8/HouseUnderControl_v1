@@ -28,11 +28,9 @@ public class ver_configuracion extends ActionBarActivity {
     int idFoto;
     String fecha;
     String address;
-
     HouseOperations dao;
-    List<House> house;
+    List<House> listaHouse;
 
-    int i = 0;
 
     private HouseHelper dbHelper;
     private SQLiteDatabase db;
@@ -42,61 +40,32 @@ public class ver_configuracion extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_configuracion);
 
-        dao = new HouseOperations(getApplicationContext());
+        dao = new HouseOperations(this);
 
         TextView nombreTV = (TextView) findViewById(R.id.nombreValueTV);
         TextView addressTV = (TextView) findViewById(R.id.addressValueTV);
         TextView cantidadTV = (TextView) findViewById(R.id.cantidadValueTV);
         casaIV = (ImageView) findViewById(R.id.casaIV);
 
-        house = dao.getHouse();
+        listaHouse = dao.getAll();
 
-        i = house.size() - 1;
+        Bundle extras = getIntent().getExtras();
+        id = extras.getInt("position");
+        House house = listaHouse.get(id);
 
-        //for (i=0; i<house.size(); i++) {
-            //if (i) {
-                int id = house.get(i).getId();
-                String name = house.get(i).getName();
-                String cantCuartos = String.valueOf(house.get(i).getCantCuartos());
-                byte[] foto = house.get(i).getFoto();
-                int idFoto = house.get(i).getId();
-                String fecha = house.get(i).getFecha();
-                String address = house.get(i).getAddress();
-            //}
-        //}
+        byte[] foto =  house.getFoto();
+        //        int idFoto =  house.getId();
+        //        String fecha =  house.getFecha();
 
         fotoBit = BitmapFactory.decodeByteArray(foto, 0, foto.length);
 
-        nombreTV.setText(name);
-        addressTV.setText(address);
-        cantidadTV.setText(cantCuartos);
+        nombreTV.setText(String.valueOf(house.getName()));
+        addressTV.setText(String.valueOf( house.getAddress()));
+        cantidadTV.setText(String.valueOf( house.getCantCuartos()));
         casaIV.setImageBitmap(fotoBit);
 
-        // INTENT
-       /* Bundle bundle = getIntent().getExtras();
-        String n = bundle.getString("nombre");
-        String c = bundle.getString("cantidad");
-        String photo = bundle.getString("photo"); */
 
-     /*   nombreTV.setText(n);
-        cantidadTV.setText(c); */
-     /*   if (!photo.matches("")) {
 
-        if (photo.equals("1")) {
-            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa1);
-            casaIV.setImageBitmap(imageBP);
-        } else if (photo.equals("2")) {
-            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa2);
-            casaIV.setImageBitmap(imageBP);
-        } else if (photo.equals("3")) {
-            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa3);
-            casaIV.setImageBitmap(imageBP);
-        } else if (photo.equals("4")) {
-            imageBP = BitmapFactory.decodeResource(getResources(), R.mipmap.casa4);
-            casaIV.setImageBitmap(imageBP);
-        }
-    } */
-//
 
     }
 

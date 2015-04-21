@@ -1,20 +1,23 @@
 <resources>
     <string name="app_name">HouseUnderControl</string>
 
-=======
->>>>>>> Stashed changes
+
     <string name="action_settings">Settings</string>
-    <string name="configuracion">Configuracion</string>
+    <string name="configuracion">Nueva Configuracion</string>
     <string name="monitoreo">Monitoreo</string>
-    <string name="ver_configuracion">Ver Configuracion</string>
+    <string name="ver_configuracion">Ver Configuraciones</string>
     <string name="title_activity_activity_row">activity_row</string>
     <string name="title_activity_activity_config">activity_config</string>
-    <string name="title_activity_ver_configuracion">ver_configuracion</string>
+    <string name="title_activity_ver_configuracion">Ver Casa</string>
     <string name="nombre">Nombre:</string>
     <string name="cantidad">Cantidad de Cuartos:</string>
     <string name="guardar">Guardar Configuracion</string>
 
+    <string name="verCasas">Ver Lista de Casas</string>
+    <string name="verAlarmas">Ver Lista de Alarmas</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_monitoreo">MonitoreoActivity</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_ver_todos">Ver Configuraciones</string>
+    <string name="title_activity_ver_alarmas">ver_alarmas</string>
 </resources>

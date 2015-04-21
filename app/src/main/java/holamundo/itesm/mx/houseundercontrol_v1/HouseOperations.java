@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by renegalvez on 4/15/15.
  */
+
+
 public class HouseOperations {
     private SQLiteDatabase db;
     private HouseHelper dbHelper;
@@ -24,6 +27,11 @@ public class HouseOperations {
     private static final String COLUMN_ID_FOTO = "idFoto";
     private static final String COLUMN_FECHA = "fecha";
     private static final String COLUMN_ADDRESS = "ADDRESS";
+
+    private static final String TABLE_ALARMA = "alarmas";
+    private static final String COLUMNALARMA_ID = "_id";
+    private static final String COLUMNALARMA_FECHA = "fecha";
+    private static final String COLUMNALARMA_IDHOUSE = "idHouse";
 
     Context context1;
 
@@ -80,7 +88,7 @@ public class HouseOperations {
 
     }
 
-    public List<House> getAllProducts(){
+    public List<House> getAll(){
         List<House> listaProducts = new ArrayList<House>();
 
         db = dbHelper.getWritableDatabase();
@@ -138,6 +146,40 @@ public class HouseOperations {
 
         cursor.close();
         return listaHouses;
+    }
+
+
+
+    public void addAlarma(Alarma alarma) {
+
+        ContentValues values2 = new ContentValues();
+
+        values2.put(COLUMNALARMA_FECHA,alarma.getFecha());
+        values2.put(COLUMNALARMA_IDHOUSE, alarma.getIdHouse());
+
+        db.insert(TABLE_ALARMA, null, values2);
+    }
+
+    public List<Alarma> getAllAlarma(){
+        List<Alarma> listaAlarmas = new ArrayList<Alarma>();
+
+        db = dbHelper.getWritableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_ALARMA;
+        //Toast.makeText(context1, selectQuery, Toast.LENGTH_SHORT).show();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                Alarma alarma = new Alarma( cursor.getString(1), Integer.parseInt(cursor.getString(2)));
+                //Toast.makeText(context1, cursor.getString(0), Toast.LENGTH_SHORT).show();
+                listaAlarmas.add(alarma);
+
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        return listaAlarmas;
 
     }
+
 }
