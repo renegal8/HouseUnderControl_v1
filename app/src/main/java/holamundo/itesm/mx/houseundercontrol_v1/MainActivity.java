@@ -152,7 +152,8 @@ public class MainActivity extends ActionBarActivity {
         System.out.println("Current time =&gt; "+c.getTime());
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = df.format(c.getTime());
+        SimpleDateFormat df2 = new SimpleDateFormat("HH:mm:ss");
+        String fecha = df.format(c.getTime()) + "      " + df2.format(c.getTime()) ;
 
 
         Alarma alarma = new Alarma(fecha,1);
