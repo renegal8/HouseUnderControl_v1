@@ -48,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
     String tphoto1 = "";
 
     private HouseOperations dao;
-    private AlarmaHelper dbHelper;
     private SQLiteDatabase db;
 
 

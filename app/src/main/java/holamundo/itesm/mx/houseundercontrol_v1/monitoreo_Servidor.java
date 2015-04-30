@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,8 @@ public class monitoreo_Servidor extends ActionBarActivity {
     ProgressDialog progressDialog;
     String url = "http://api.openweathermap.org/data/2.5/forecast?lat=25.67&lon=-100.32";
     private HouseOperations dao;
+
+    Handler customHandler = new android.os.Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,19 @@ public class monitoreo_Servidor extends ActionBarActivity {
         }
     }
 
-
+    private Runnable updateTimerThread = new Runnable()
+    {
+        public void run()
+        {
+            if (isConnected()) {
+                Toast.makeText(getApplicationContext(), "Ejecute URL", Toast.LENGTH_LONG).show();
+                new LoadData().execute(url);
+            } else {
+                Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+            }
+            customHandler.postDelayed(this, 10000);
+        }
+    };
 
     public boolean isConnected (){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
