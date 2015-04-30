@@ -1,11 +1,15 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,12 +40,22 @@ public class monitoreo_Servidor extends ActionBarActivity {
     String url = "http://api.openweathermap.org/data/2.5/forecast?lat=25.67&lon=-100.32";
     private HouseOperations dao;
 
-    Handler customHandler = new android.os.Handler();
+    int notificationCount;
+    final int MY_NOTIFICATION_ID = 1;
+    final String tickerText = "Notification message";
+    final String contentTitle = "Notification";
+    final String contentText = "You've been notified";
+
+    Intent notificationIntent;
+    PendingIntent pendingIntent;
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoreo__servidor);
+
+
 
         dao = new HouseOperations(this);
         try {
@@ -68,19 +82,7 @@ public class monitoreo_Servidor extends ActionBarActivity {
         }
     }
 
-    private Runnable updateTimerThread = new Runnable()
-    {
-        public void run()
-        {
-            if (isConnected()) {
-                Toast.makeText(getApplicationContext(), "Ejecute URL", Toast.LENGTH_LONG).show();
-                new LoadData().execute(url);
-            } else {
-                Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
-            }
-            customHandler.postDelayed(this, 10000);
-        }
-    };
+
 
     public boolean isConnected (){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
@@ -139,7 +141,7 @@ public class monitoreo_Servidor extends ActionBarActivity {
                     double temp = c1.getDouble("temp")-273.15;
                     double temp_min = c1.getDouble("temp_min")-273.15;
                     double temp_max = c1.getDouble("temp_max")-273.15;
-                    if(temp < 15)
+                    if(temp < 10)
                     {
                         Calendar calendar = Calendar.getInstance();
                         System.out.println("Current time =&gt; " + calendar.getTime());
@@ -154,7 +156,14 @@ public class monitoreo_Servidor extends ActionBarActivity {
 
                         Toast.makeText(getApplicationContext(), "Alarma Agregada Exitosamente", Toast.LENGTH_SHORT).show();
 
-
+                        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
+                        notificationBuilder.setContentTitle(contentTitle);
+                        notificationBuilder.setTicker(tickerText);
+                        notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+                        notificationBuilder.setContentText(contentText + " (" + ++notificationCount + ")");
+                        notificationBuilder.setContentIntent(pendingIntent);
+                        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
                     }
 
                     Clima clima = new Clima(temp,temp_max,temp_min);

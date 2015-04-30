@@ -1,13 +1,17 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +54,15 @@ public class MainActivity extends ActionBarActivity {
     private HouseOperations dao;
     private SQLiteDatabase db;
 
+    private int notificationCount;
+    private final int MY_NOTIFICATION_ID = 1;
+    private final String tickerText = "Notification message";
+    private final String contentTitle = "Alarma Activada!!!";
+    private final String contentText = "Tu Alarma ha sido Activada";
+
+    private Intent notificationIntent;
+    private PendingIntent pendingIntent;
+    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +190,15 @@ public class MainActivity extends ActionBarActivity {
         dao.addAlarma(alarma);
 
         Toast.makeText(getApplicationContext(), "Alarma Agregada Exitosamente", Toast.LENGTH_SHORT).show();
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
+        notificationBuilder.setContentTitle(contentTitle);
+        notificationBuilder.setTicker(tickerText);
+        notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+        notificationBuilder.setContentText(contentText + " (" + ++notificationCount + ")");
+        notificationBuilder.setContentIntent(pendingIntent);
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
 
     }
 
