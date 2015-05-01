@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,12 +40,13 @@ public class monitoreo_Servidor extends ActionBarActivity {
     ProgressDialog progressDialog;
     String url = "http://api.openweathermap.org/data/2.5/forecast?lat=25.67&lon=-100.32";
     private HouseOperations dao;
+    Handler customHandler = new android.os.Handler();
 
     int notificationCount;
     final int MY_NOTIFICATION_ID = 1;
-    final String tickerText = "Notification message";
-    final String contentTitle = "Notification";
-    final String contentText = "You've been notified";
+    private final String tickerText = "Notification message";
+    private final String contentTitle = "Alarma Activada!!!";
+    private final String contentText = "Tu Alarma ha sido Activada";
 
     Intent notificationIntent;
     PendingIntent pendingIntent;
@@ -64,7 +66,7 @@ public class monitoreo_Servidor extends ActionBarActivity {
             e.printStackTrace();
         }
 
-
+        customHandler.postDelayed(updateTimerThread, 1000);
         listaClimasLV = (ListView) findViewById(R.id.listaLV);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -78,10 +80,22 @@ public class monitoreo_Servidor extends ActionBarActivity {
             new LoadData().execute(url);
         }
         else{
-            Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_SHORT).show();
         }
     }
-
+    private Runnable updateTimerThread = new Runnable()
+    {
+        public void run()
+        {
+            if (isConnected()) {
+                Toast.makeText(getApplicationContext(), "Ejecute URL", Toast.LENGTH_SHORT).show();
+                new LoadData().execute(url);
+            } else {
+                Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_SHORT).show();
+            }
+            customHandler.postDelayed(this, 15000);
+        }
+    };
 
 
     public boolean isConnected (){

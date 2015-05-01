@@ -25,6 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -66,9 +69,17 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "iKGWAwlQ9Z2AWSyDMb24uxXi1jHV0J4QiAtA51Gq", "fZ0HR3NhJ9OFDXzAsZpmMo7habc07M8CYaZEZGwC");
+        /*
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+        */
         dao = new HouseOperations(this);
         try {
             dao.open();
