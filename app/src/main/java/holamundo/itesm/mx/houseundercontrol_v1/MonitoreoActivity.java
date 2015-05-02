@@ -16,6 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -48,6 +54,7 @@ public class MonitoreoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoreo);
 
+
         dao = new HouseOperations(getApplicationContext());
 
         MyGestureDetector myGestureDetector = new MyGestureDetector();
@@ -68,11 +75,69 @@ public class MonitoreoActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if(encenderAlarmaButton.isPressed()){
 
-                }else if(encenderFocoButton.isPressed()){
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
+
+                    query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
+                        public void done(ParseObject manual, ParseException e) {
+                            if (e == null) {
+                                // Now let's update it with some new data. In this case, only cheatMode and score
+                                // will get sent to the Parse Cloud. playerName hasn't changed.
+                                manual.put("enableAlarma", 1);
+                                manual.saveInBackground();
+                                Toast.makeText(MonitoreoActivity.this, "Petición de Encender Alarma Enviada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
 
                 }else if(apagarAlarmaButton.isPressed()){
 
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
+
+                    query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
+                        public void done(ParseObject manual, ParseException e) {
+                            if (e == null) {
+                                // Now let's update it with some new data. In this case, only cheatMode and score
+                                // will get sent to the Parse Cloud. playerName hasn't changed.
+                                manual.put("enableAlarma", 0);
+                                manual.saveInBackground();
+                                Toast.makeText(MonitoreoActivity.this, "Petición de Apagar Alarma Enviada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
+                }else if(encenderFocoButton.isPressed()){
+
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
+
+                    query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
+                        public void done(ParseObject manual, ParseException e) {
+                            if (e == null) {
+                                // Now let's update it with some new data. In this case, only cheatMode and score
+                                // will get sent to the Parse Cloud. playerName hasn't changed.
+                                manual.put("enableLuz", 1);
+                                manual.saveInBackground();
+                                Toast.makeText(MonitoreoActivity.this, "Petición de Encender Luz Enviada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 }else if(apagarFocoButton.isPressed()){
+
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
+
+                    query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
+                        public void done(ParseObject manual, ParseException e) {
+                            if (e == null) {
+                                // Now let's update it with some new data. In this case, only cheatMode and score
+                                // will get sent to the Parse Cloud. playerName hasn't changed.
+                                manual.put("enableLuz", 0);
+                                manual.saveInBackground();
+                                Toast.makeText(MonitoreoActivity.this, "Petición de Apagar Luz Enviada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                     
                 }
 
@@ -161,16 +226,16 @@ public class MonitoreoActivity extends ActionBarActivity {
 
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-            Toast.makeText(MonitoreoActivity.this, "onFling", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MonitoreoActivity.this, "onFling", Toast.LENGTH_SHORT).show();
             //Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
 
             if (event1.getX() < event2.getX()) {
-                Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
 
             }
 
             if (event1.getX() > event2.getX()) {
-                Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
 
 
             }
