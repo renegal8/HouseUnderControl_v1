@@ -1,16 +1,10 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,35 +33,25 @@ public class monitoreo_Servidor extends ActionBarActivity {
     ClimaAdapter adaptadorLista;
     ListView listaClimasLV;
     ProgressDialog progressDialog;
-    String url = "http://api.openweathermap.org/data/2.5/forecast?lat=25.67&lon=-100.32";
+    String url = "http://10.13.159.52/";
     private HouseOperations dao;
     Handler customHandler = new android.os.Handler();
 
-    int notificationCount;
-    final int MY_NOTIFICATION_ID = 1;
-    private final String tickerText = "Notification message";
-    private final String contentTitle = "Alarma Activada!!!";
-    private final String contentText = "Tu Alarma ha sido Activada";
 
-    Intent notificationIntent;
-    PendingIntent pendingIntent;
-    NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoreo__servidor);
-
-
-
+        customHandler.post(sendData);
         dao = new HouseOperations(this);
         try {
             dao.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        //customHandler.postDelayed(updateTimerThread, 0);
 
-        customHandler.postDelayed(updateTimerThread, 1000);
         listaClimasLV = (ListView) findViewById(R.id.listaLV);
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -80,22 +65,35 @@ public class monitoreo_Servidor extends ActionBarActivity {
             new LoadData().execute(url);
         }
         else{
-            Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
         }
     }
-    private Runnable updateTimerThread = new Runnable()
-    {
-        public void run()
-        {
-            if (isConnected()) {
-                Toast.makeText(getApplicationContext(), "Ejecute URL", Toast.LENGTH_SHORT).show();
-                new LoadData().execute(url);
-            } else {
-                Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_SHORT).show();
+
+
+    private final Runnable sendData = new Runnable(){
+        public void run(){
+            try {
+                //prepare and send the data here..
+                if (isConnected()) {
+                    Toast.makeText(getApplicationContext(), "Ejecute URL", Toast.LENGTH_LONG).show();
+                    new LoadData().execute(url);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
+
+                customHandler.postDelayed(this, 10000);
             }
-            customHandler.postDelayed(this, 15000);
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        customHandler.removeCallbacks(sendData);
+    }
 
 
     public boolean isConnected (){
@@ -115,7 +113,7 @@ public class monitoreo_Servidor extends ActionBarActivity {
             progressDialog = new ProgressDialog(monitoreo_Servidor.this);
             progressDialog.setMessage("Loading...");
             progressDialog.setCancelable(false);
-            progressDialog.show();
+            //  progressDialog.show();
             super.onPreExecute();
         }
 
@@ -144,18 +142,18 @@ public class monitoreo_Servidor extends ActionBarActivity {
             JSONObject dataJsonObject = null;
             try {
 
-                dataJsonObject = jsonObject.getJSONObject("city");
-                ciudad = dataJsonObject.getString("name");
-                pais = dataJsonObject.getString("country");
+                dataJsonObject = jsonObject.getJSONObject("dato");
+                ciudad = dataJsonObject.getString("luz");
+                pais = dataJsonObject.getString("temperatura");
 
                 dataJsonArray = jsonObject.getJSONArray("list");
-                for (int i=0;i<dataJsonObject.length();i++){
+               /* for (int i=0; i<dataJsonObject.length(); i++){
                     JSONObject c = dataJsonArray.getJSONObject(i);
                     JSONObject c1 = c.getJSONObject("main");
-                    double temp = c1.getDouble("temp")-273.15;
-                    double temp_min = c1.getDouble("temp_min")-273.15;
-                    double temp_max = c1.getDouble("temp_max")-273.15;
-                    if(temp < 10)
+                    double temp = c1.getDouble("temp");
+                    double temp_min = c1.getDouble("temp_min");
+                    double temp_max = c1.getDouble("temp_max");
+                    if(temp < 15)
                     {
                         Calendar calendar = Calendar.getInstance();
                         System.out.println("Current time =&gt; " + calendar.getTime());
@@ -170,19 +168,12 @@ public class monitoreo_Servidor extends ActionBarActivity {
 
                         Toast.makeText(getApplicationContext(), "Alarma Agregada Exitosamente", Toast.LENGTH_SHORT).show();
 
-                        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
-                        notificationBuilder.setContentTitle(contentTitle);
-                        notificationBuilder.setTicker(tickerText);
-                        notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
-                        notificationBuilder.setContentText(contentText + " (" + ++notificationCount + ")");
-                        notificationBuilder.setContentIntent(pendingIntent);
-                        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+
                     }
 
                     Clima clima = new Clima(temp,temp_max,temp_min);
                     climasList.add(clima);
-                }
+                }*/
 
             } catch (Exception e){
                 e.printStackTrace();
@@ -197,5 +188,8 @@ public class monitoreo_Servidor extends ActionBarActivity {
             super.onPostExecute(jsonObject);
         }
     }
+
+
+
 
 }

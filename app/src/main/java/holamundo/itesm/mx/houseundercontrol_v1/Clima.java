@@ -5,38 +5,37 @@ package holamundo.itesm.mx.houseundercontrol_v1;
  */
 public class Clima  {
 
-    double tempActual;
-    double tempMinima;
-    double tempMaxima;
+    double luz;
+    double temperatura;
+    double statLuz;
 
-    public Clima(double tempActual, double tempMinima, double tempMaxima) {
-        this.tempActual = tempActual;
-        this.tempMinima = tempMinima;
-        this.tempMaxima = tempMaxima;
-    }
-    public double getTempActual() {
-        return tempActual;
+    public Clima(double luz, double temperatura, double statLuz) {
+        this.luz = luz;
+        this.temperatura = temperatura;
+        this.statLuz = statLuz;
     }
 
-    public void setTempActual(double tempActual) {
-        this.tempActual = tempActual;
+    public double getStatLuz() {
+        return statLuz;
     }
 
-    public double getTempMinima() {
-        return tempMinima;
+    public void setStatLuz(double statLuz) {
+        this.statLuz = statLuz;
     }
 
-    public void setTempMinima(double tempMinima) {
-        this.tempMinima = tempMinima;
+    public double getTemperatura() {
+        return temperatura;
     }
 
-    public double getTempMaxima() {
-        return tempMaxima;
+    public void setTemperatura(double temperatura) {
+        this.temperatura = temperatura;
     }
 
-    public void setTempMaxima(double tempMaxima) {
-        this.tempMaxima = tempMaxima;
+    public double getLuz() {
+        return luz;
     }
 
-
+    public void setLuz(double luz) {
+        this.luz = luz;
+    }
 }

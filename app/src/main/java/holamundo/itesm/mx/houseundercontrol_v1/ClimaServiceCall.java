@@ -62,11 +62,11 @@ public class ClimaServiceCall {
             e.printStackTrace();
         } finally {
             if (reader != null)
-           try {
-                reader.close();
-            }catch (IOException e){
-               e.printStackTrace();
-           }
+                try {
+                    reader.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
         }
         return response.toString();
     }

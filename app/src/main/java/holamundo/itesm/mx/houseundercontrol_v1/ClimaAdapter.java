@@ -39,18 +39,18 @@ public class ClimaAdapter extends ArrayAdapter<Clima> {
             row= inflater.inflate(resourceId,parent,false);
         }
 
-        TextView tempActual = (TextView)row.findViewById(R.id.actualValorTV);
-        TextView tempMin = (TextView)row.findViewById(R.id.minimaValueTV);
-        TextView tempMax = (TextView)row.findViewById(R.id.maximaValueTV);
+        TextView luz = (TextView)row.findViewById(R.id.actualValorTV);
+        TextView temperatura = (TextView)row.findViewById(R.id.minimaValueTV);
+        TextView statLuz = (TextView)row.findViewById(R.id.maximaValueTV);
 
         //obtiene el elemento de la lista de temperaturas
         Clima clima = listaClimas.get(position);
 
         DecimalFormat df= new DecimalFormat("#.##");
 
-        tempActual.setText(String.valueOf(df.format(clima.getTempActual())));
-        tempMin.setText(String.valueOf(df.format(clima.getTempMinima())));
-        tempMax.setText(String.valueOf(df.format(clima.getTempMaxima())));
+        luz.setText(String.valueOf(df.format(clima.getLuz())));
+        temperatura.setText(String.valueOf(df.format(clima.getTemperatura())));
+        statLuz.setText(String.valueOf(df.format(clima.getStatLuz())));
 
         return row;
     }
