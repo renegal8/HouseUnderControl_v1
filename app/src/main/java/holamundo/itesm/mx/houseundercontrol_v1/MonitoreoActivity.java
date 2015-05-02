@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +54,34 @@ public class MonitoreoActivity extends ActionBarActivity {
         final GestureDetector gestureDetector = new GestureDetector(this, myGestureDetector);
         gestureDetector.setOnDoubleTapListener(myGestureDetector);
 
+        //Declaracion de variables
         TextView nombreTV = (TextView) findViewById(R.id.nombreTV);
         casaIV = (ImageView) findViewById(R.id.casaIV);
+        final Button encenderAlarmaButton = (Button) findViewById(R.id.encenderAlarmaButton);
+        final Button encenderFocoButton = (Button) findViewById(R.id.encenderFocoButton);
+        final Button apagarAlarmaButton = (Button) findViewById(R.id.apagarAlarmaButton);
+        final Button apagarFocoButton = (Button) findViewById(R.id.apagarFocoButton);
+
+        //Listener de Botones
+        View.OnClickListener miListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(encenderAlarmaButton.isPressed()){
+
+                }else if(encenderFocoButton.isPressed()){
+
+                }else if(apagarAlarmaButton.isPressed()){
+
+                }else if(apagarFocoButton.isPressed()){
+                    
+                }
+
+            }
+        };
+        encenderAlarmaButton.setOnClickListener(miListener);
+        encenderFocoButton.setOnClickListener(miListener);
+        apagarAlarmaButton.setOnClickListener(miListener);
+        apagarFocoButton.setOnClickListener(miListener);
 
         house = dao.getHouse();
 

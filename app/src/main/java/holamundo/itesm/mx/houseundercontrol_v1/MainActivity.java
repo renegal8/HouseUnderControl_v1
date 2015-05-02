@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
     private HouseOperations dao;
     private SQLiteDatabase db;
 
-    private int notificationCount;
+    /*private int notificationCount;
     private final int MY_NOTIFICATION_ID = 1;
     private final String tickerText = "Notification message";
     private final String contentTitle = "Alarma Activada!!!";
@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Intent notificationIntent;
     private PendingIntent pendingIntent;
-    NotificationManager notificationManager;
+    NotificationManager notificationManager;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,6 @@ public class MainActivity extends ActionBarActivity {
         monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
         localizarBtn = (Button) findViewById(R.id.localizarBtn);
         veralarma = (Button) findViewById(R.id.botonAlarma);
-        prueba = (Button) findViewById(R.id.prueba);
         monitoreoServidor = (Button) findViewById(R.id.botonMonitoreoServ);
 
         config.setOnClickListener(new View.OnClickListener() {
@@ -162,13 +161,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        prueba.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                newAlarma(v);
-            }
-        });
 
         monitoreoServidor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void newAlarma(View view) {
+   /* public void newAlarma(View view) {
 
 
         Calendar c = Calendar.getInstance();
@@ -211,7 +204,7 @@ public class MainActivity extends ActionBarActivity {
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
 
-    }
+    }*/
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

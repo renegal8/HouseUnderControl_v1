@@ -28,4 +28,8 @@
     <string name="temperatura">temperatura Actual</string>
     <string name="tempMaxima">temperatura maxima</string>
     <string name="tempMinima">temperatura minima</string>
+    <string name="encenderAlarma">Encender Alarma</string>
+    <string name="apagarAlarma">Apagar Alarma</string>
+    <string name="encenderFoco">Encender Foco</string>
+    <string name="apagarFoco">Apagar Foco</string>
 </resources>
