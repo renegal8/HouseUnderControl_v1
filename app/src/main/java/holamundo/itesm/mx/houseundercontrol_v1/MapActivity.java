@@ -18,9 +18,9 @@ import java.util.List;
 public class MapActivity extends ActionBarActivity {
 
     HouseOperations dao;
-    List<House> house;
+    List<House> listaHouse;
 
-    int i = 0;
+    int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,13 @@ public class MapActivity extends ActionBarActivity {
         final TextView addressTV = (TextView)findViewById(R.id.addressTV);
         final Button localizarBtn = (Button) findViewById(R.id.localizarBtn);
 
-        house = dao.getHouse();
+        listaHouse = dao.getHouse();
 
-        i = house.size() - 1;
+        Bundle extras = getIntent().getExtras();
+        id = extras.getInt("position");
+        House house = listaHouse.get(id);
 
-        String address = house.get(i).getAddress();
+        String address = house.getAddress();
 
         addressTV.setText(address);
 

@@ -33,12 +33,12 @@ public class AlarmaListAdapter extends ArrayAdapter<Alarma> {
             row = inflater.inflate(layoutResourceId,parent,false);
         }
         TextView rowTV = (TextView) row.findViewById(R.id.rowTV);
-        TextView rowTV2 = (TextView) row.findViewById(R.id.rowTV2);
+      //  TextView rowTV2 = (TextView) row.findViewById(R.id.rowTV2);
         if(!lista.isEmpty()){
             Alarma alarma = lista.get(position);
 
             rowTV.setText(String.valueOf(alarma.getFecha()));
-            rowTV2.setText(String.valueOf(alarma.getIdHouse()));
+           // rowTV2.setText(String.valueOf(alarma.getIdHouse()));
         }
         return row;
     }

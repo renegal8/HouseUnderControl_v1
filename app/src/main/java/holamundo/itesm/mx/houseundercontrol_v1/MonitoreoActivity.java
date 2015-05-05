@@ -40,7 +40,7 @@ public class MonitoreoActivity extends ActionBarActivity {
     String fecha;
 
     HouseOperations dao;
-    List<House> house;
+    List<House> listaHouse;
 
     int i = 0;
 
@@ -148,16 +148,19 @@ public class MonitoreoActivity extends ActionBarActivity {
         apagarAlarmaButton.setOnClickListener(miListener);
         apagarFocoButton.setOnClickListener(miListener);
 
-        house = dao.getHouse();
 
-        i = house.size() - 1;
+        listaHouse = dao.getHouse();
+        Bundle extras = getIntent().getExtras();
+        i = extras.getInt("position");
+        House house = listaHouse.get(i);
 
-        id = house.get(i).getId();
-        name = house.get(i).getName();
-        cantCuartos = house.get(i).getCantCuartos();
-        foto = house.get(i).getFoto();
-        idFoto = house.get(i).getIdFoto();
-        fecha = house.get(i).getFecha();
+
+        id = house.getId();
+        name = house.getName();
+        cantCuartos = house.getCantCuartos();
+        foto = house.getFoto();
+        idFoto = house.getIdFoto();
+        fecha = house.getFecha();
 
 
         fotoBit = BitmapFactory.decodeByteArray(foto, 0, foto.length);

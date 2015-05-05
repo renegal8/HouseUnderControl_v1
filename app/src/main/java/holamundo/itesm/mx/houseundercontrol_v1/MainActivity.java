@@ -57,15 +57,16 @@ public class MainActivity extends ActionBarActivity {
     private HouseOperations dao;
     private SQLiteDatabase db;
 
-    /*private int notificationCount;
+    /*
+    private int notificationCount;
     private final int MY_NOTIFICATION_ID = 1;
     private final String tickerText = "Notification message";
     private final String contentTitle = "Alarma Activada!!!";
     private final String contentText = "Tu Alarma ha sido Activada";
-
     private Intent notificationIntent;
     private PendingIntent pendingIntent;
-    NotificationManager notificationManager;*/
+    NotificationManager notificationManager;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +76,6 @@ public class MainActivity extends ActionBarActivity {
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "iKGWAwlQ9Z2AWSyDMb24uxXi1jHV0J4QiAtA51Gq", "fZ0HR3NhJ9OFDXzAsZpmMo7habc07M8CYaZEZGwC");
-        /*
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-        */
         dao = new HouseOperations(this);
         try {
             dao.open();
@@ -112,10 +108,6 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 try {
                     Intent verIntent = new Intent(MainActivity.this, ver_todos.class);
-                    /*intent.putExtra("nombre",tname);
-                    intent.putExtra("cantidad",tcant);
-                    //intent.putExtra("photo", tphoto);
-                    intent.putExtra("photo", tphoto1); */
                     startActivity(verIntent);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Failed to send intent", e);
@@ -127,7 +119,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent monitoreoIntent = new Intent(MainActivity.this, MonitoreoActivity.class);
+                    Intent monitoreoIntent = new Intent(MainActivity.this, MonitoreoTodos.class);
                     startActivity(monitoreoIntent);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Failed to send intent", e);
@@ -140,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 try {
-                    Intent mapaIntent = new Intent(MainActivity.this, MapActivity.class);
+                    Intent mapaIntent = new Intent(MainActivity.this, MapTodos.class);
                     startActivity(mapaIntent);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Failed to send intent", e);
@@ -176,10 +168,12 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+
+
     }
 
-
-   /* public void newAlarma(View view) {
+/*
+    public void newAlarma(View view) {
 
 
         Calendar c = Calendar.getInstance();
@@ -204,8 +198,8 @@ public class MainActivity extends ActionBarActivity {
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
 
-    }*/
-
+    }
+*/
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {

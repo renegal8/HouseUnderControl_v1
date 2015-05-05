@@ -52,6 +52,14 @@
             android:name=".monitoreo_Servidor"
             android:label="@string/title_activity_monitoreo__servidor" >
         </activity>
+        <activity
+            android:name=".MapTodos"
+            android:label="@string/title_activity_map_todos" >
+        </activity>
+        <activity
+            android:name=".MonitoreoTodos"
+            android:label="@string/title_activity_monitoreo_todos" >
+        </activity>
     </application>
 
 </manifest>
