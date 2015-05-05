@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import org.json.JSONObject;
@@ -36,6 +37,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import com.parse.Parse;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -73,9 +77,20 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Parse.initialize(this, "iKGWAwlQ9Z2AWSyDMb24uxXi1jHV0J4QiAtA51Gq", "fZ0HR3NhJ9OFDXzAsZpmMo7habc07M8CYaZEZGwC");
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
 
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "iKGWAwlQ9Z2AWSyDMb24uxXi1jHV0J4QiAtA51Gq", "fZ0HR3NhJ9OFDXzAsZpmMo7habc07M8CYaZEZGwC");
+
         dao = new HouseOperations(this);
         try {
             dao.open();
