@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/nombreValueET"
         android:layout_x="127dp"
+        android:ems="10"
         android:layout_y="20dp" />
 
     <TextView
@@ -48,18 +49,18 @@
             android:layout_y="107dp" />
 
     <ListView
-        android:layout_width="140dp"
-        android:layout_height="103dp"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
         android:id="@+id/cuartosLV"
-        android:layout_x="100dp"
-        android:layout_y="145dp"/>
+        android:layout_x="21dp"
+        android:layout_y="150dp"/>
 
     <ImageView
         android:layout_width="161dp"
         android:layout_height="161dp"
         android:id="@+id/casaIV"
-        android:layout_x="100dp"
-        android:layout_y="259dp"/>
+        android:layout_x="109dp"
+        android:layout_y="271dp"/>
 
     <Button
         android:layout_width="wrap_content"

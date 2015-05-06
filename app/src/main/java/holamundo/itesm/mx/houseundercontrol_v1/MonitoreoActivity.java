@@ -87,7 +87,7 @@ public class MonitoreoActivity extends ActionBarActivity {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     // object will be your game score
-                    tempTV.setText(object.get("temperatura").toString());
+                    tempTV.setText(object.get("temperatura").toString()+  " Cº");
                     luzTV.setText(object.get("luz").toString());
                     statLuzTV.setText(object.get("statLuz").toString());
                     statAlarmaTV.setText(object.get("statAlarma").toString());
@@ -225,7 +225,7 @@ public class MonitoreoActivity extends ActionBarActivity {
                         public void done(ParseObject object, ParseException e) {
                             if (e == null) {
                                 // object will be your game score
-                                tempTV.setText(object.get("temperatura").toString());
+                                tempTV.setText(object.get("temperatura").toString()+ " Cº");
                                 luzTV.setText(object.get("luz").toString());
                                 statLuzTV.setText(object.get("statLuz").toString());
                                 statAlarmaTV.setText(object.get("statAlarma").toString());

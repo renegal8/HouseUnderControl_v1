@@ -8,8 +8,11 @@
         android:id="@+id/rowTV"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
-        android:textSize="10dp"
+        android:textSize="24dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </LinearLayout>

@@ -41,7 +41,8 @@
         </activity>
         <activity
             android:name=".activity_config"
-            android:label="@string/title_activity_activity_config" >
+            android:label="@string/title_activity_activity_config"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".ver_configuracion"
