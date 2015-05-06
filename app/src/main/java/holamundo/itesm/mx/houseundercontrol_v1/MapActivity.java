@@ -1,6 +1,7 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -19,14 +20,14 @@ public class MapActivity extends ActionBarActivity {
 
     HouseOperations dao;
     List<House> listaHouse;
-
+    MediaPlayer buttonSound;
     int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        buttonSound = MediaPlayer.create(MapActivity.this, R.raw.beep);
         dao = new HouseOperations(getApplicationContext());
 
         final TextView addressTV = (TextView)findViewById(R.id.addressTV);
@@ -46,6 +47,7 @@ public class MapActivity extends ActionBarActivity {
         View.OnClickListener miListener = new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                buttonSound.start();
                 String direccionStr = addressTV.getText().toString();
                 direccionStr = direccionStr.replace(' ', '+');
                 Uri uri = Uri.parse("geo:0,0?q=" + direccionStr);

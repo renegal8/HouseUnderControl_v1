@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -41,6 +42,7 @@ public class MonitoreoActivity extends ActionBarActivity {
     byte[] foto;
     int idFoto;
     String fecha;
+    MediaPlayer buttonSound;
 
     TextView tempTV;
     TextView luzTV;
@@ -77,6 +79,7 @@ public class MonitoreoActivity extends ActionBarActivity {
         statLuzTV = (TextView) findViewById(R.id.statLuzValueTV);
         statAlarmaTV = (TextView) findViewById(R.id.statAlarmaValueTV);
 
+        buttonSound = MediaPlayer.create(MonitoreoActivity.this,R.raw.beep);
 
         ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
         //queryObtencion.fromLocalDatastore();
@@ -108,7 +111,7 @@ public class MonitoreoActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if(encenderAlarmaButton.isPressed()){
-
+                    buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
@@ -125,7 +128,7 @@ public class MonitoreoActivity extends ActionBarActivity {
 
 
                 }else if(apagarAlarmaButton.isPressed()){
-
+                    buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
@@ -142,7 +145,7 @@ public class MonitoreoActivity extends ActionBarActivity {
 
 
                 }else if(encenderFocoButton.isPressed()){
-
+                    buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
@@ -158,7 +161,7 @@ public class MonitoreoActivity extends ActionBarActivity {
                     });
 
                 }else if(apagarFocoButton.isPressed()){
-
+                    buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -50,6 +51,8 @@ public class MainActivity extends ActionBarActivity {
     Button monitoreoBtn;
     Button localizarBtn;
     Button veralarma;
+    Button botonOpciones;
+    MediaPlayer buttonSound;
 
     String tname = "";
     String tcant = "";
@@ -74,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, "iKGWAwlQ9Z2AWSyDMb24uxXi1jHV0J4QiAtA51Gq", "fZ0HR3NhJ9OFDXzAsZpmMo7habc07M8CYaZEZGwC");
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
@@ -86,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Parse.enableLocalDatastore(this);
+
 
         dao = new HouseOperations(this);
         try {
@@ -100,12 +104,14 @@ public class MainActivity extends ActionBarActivity {
         monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
         localizarBtn = (Button) findViewById(R.id.localizarBtn);
         veralarma = (Button) findViewById(R.id.botonAlarma);
+        botonOpciones = (Button) findViewById(R.id.botonOpciones);
+        buttonSound = MediaPlayer.create(MainActivity.this,R.raw.beep);
 
 
         config.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                buttonSound.start();
                 try {
                     Intent configIntent = new Intent(MainActivity.this, activity_config.class);
                     startActivityForResult(configIntent, 1);
@@ -118,6 +124,7 @@ public class MainActivity extends ActionBarActivity {
         verconfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound.start();
                 try {
                     Intent verIntent = new Intent(MainActivity.this, ver_todos.class);
                     startActivity(verIntent);
@@ -130,6 +137,7 @@ public class MainActivity extends ActionBarActivity {
         monitoreoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonSound.start();
                 try {
                     Intent monitoreoIntent = new Intent(MainActivity.this, MonitoreoTodos.class);
                     startActivity(monitoreoIntent);
@@ -142,7 +150,7 @@ public class MainActivity extends ActionBarActivity {
         localizarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                buttonSound.start();
                 try {
                     Intent mapaIntent = new Intent(MainActivity.this, MapTodos.class);
                     startActivity(mapaIntent);
@@ -155,9 +163,24 @@ public class MainActivity extends ActionBarActivity {
         veralarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                buttonSound.start();
                 try {
+
                     Intent intent = new Intent(MainActivity.this, ver_alarmas.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, "Failed to send intent", e);
+                }
+            }
+        });
+
+        botonOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonSound.start();
+                try {
+
+                    Intent intent = new Intent(MainActivity.this, OpcionesActivity.class);
                     startActivity(intent);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Failed to send intent", e);

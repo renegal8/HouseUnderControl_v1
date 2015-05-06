@@ -1,6 +1,7 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,12 +17,12 @@ import java.util.List;
 public class MapTodos extends ActionBarActivity {
 
     HouseOperations dao;
-
+    MediaPlayer buttonSound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_todos);
-
+        buttonSound = MediaPlayer.create(MapTodos.this, R.raw.beep);
         dao = new HouseOperations(this);
         try {
             dao.open();
@@ -36,6 +37,7 @@ public class MapTodos extends ActionBarActivity {
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                buttonSound.start();
                 Intent unoIntent = new Intent(MapTodos.this, MapActivity.class);
                 unoIntent.putExtra("position", position);
                 startActivity(unoIntent);

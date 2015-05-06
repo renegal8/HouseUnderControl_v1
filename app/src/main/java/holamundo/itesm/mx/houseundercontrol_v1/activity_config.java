@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class activity_config extends ActionBarActivity {
     ImageView img;
     Bitmap imageBP;
 
+    MediaPlayer buttonSound;
+
     int index;
 
     private HouseOperations dao;
@@ -71,9 +74,12 @@ public class activity_config extends ActionBarActivity {
         guardarBtn = (Button) findViewById(R.id.botonGuardar);
         img = (ImageView) findViewById(R.id.casaIV);
 
+        buttonSound = MediaPlayer.create(activity_config.this, R.raw.beep);
+
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                buttonSound.start();
                 String cantidad = ((TextView)view).getText().toString();
                 if(cantidad=="1"){
                     cantCuartosTV.setText("1");
@@ -114,7 +120,7 @@ public class activity_config extends ActionBarActivity {
         guardarBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                buttonSound.start();
 
                 if(nombreET.getText().toString().trim().matches("")|| cantCuartosTV.getText().toString().trim().matches(""))
                 {
