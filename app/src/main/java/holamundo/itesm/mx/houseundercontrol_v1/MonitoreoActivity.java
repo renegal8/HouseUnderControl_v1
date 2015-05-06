@@ -1,8 +1,12 @@
 package holamundo.itesm.mx.houseundercontrol_v1;
 
+import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +33,6 @@ import java.util.List;
 public class MonitoreoActivity extends ActionBarActivity {
 
     ImageView casaIV;
-    Bitmap imageBP;
     Bitmap fotoBit;
 
     int id;
@@ -38,6 +41,11 @@ public class MonitoreoActivity extends ActionBarActivity {
     byte[] foto;
     int idFoto;
     String fecha;
+
+    TextView tempTV;
+    TextView luzTV;
+    TextView statLuzTV;
+    TextView statAlarmaTV;
 
     HouseOperations dao;
     List<House> listaHouse;
@@ -49,17 +57,43 @@ public class MonitoreoActivity extends ActionBarActivity {
     private HouseHelper dbHelper;
     private SQLiteDatabase db;
 
+    Handler customHandler = new android.os.Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoreo);
 
+        customHandler.post(sendData);
 
         dao = new HouseOperations(getApplicationContext());
 
         MyGestureDetector myGestureDetector = new MyGestureDetector();
         final GestureDetector gestureDetector = new GestureDetector(this, myGestureDetector);
         gestureDetector.setOnDoubleTapListener(myGestureDetector);
+
+        tempTV = (TextView) findViewById(R.id.tempValueTV);
+        luzTV = (TextView) findViewById(R.id.luzValueTV);
+        statLuzTV = (TextView) findViewById(R.id.statLuzValueTV);
+        statAlarmaTV = (TextView) findViewById(R.id.statAlarmaValueTV);
+
+
+        ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
+        //queryObtencion.fromLocalDatastore();
+        queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // object will be your game score
+                    tempTV.setText(object.get("temperatura").toString());
+                    luzTV.setText(object.get("luz").toString());
+                    statLuzTV.setText(object.get("statLuz").toString());
+                    statAlarmaTV.setText(object.get("statAlarma").toString());
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+
 
         //Declaracion de variables
         TextView nombreTV = (TextView) findViewById(R.id.nombreTV);
@@ -175,6 +209,56 @@ public class MonitoreoActivity extends ActionBarActivity {
                 return true;
             }
         });
+    }
+
+    private final Runnable sendData = new Runnable(){
+        public void run(){
+            try {
+                //prepare and send the data here..
+                if (isConnected()) {
+                    ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
+                    //queryObtencion.fromLocalDatastore();
+                    queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
+                                // object will be your game score
+                                tempTV.setText(object.get("temperatura").toString());
+                                luzTV.setText(object.get("luz").toString());
+                                statLuzTV.setText(object.get("statLuz").toString());
+                                statAlarmaTV.setText(object.get("statAlarma").toString());
+                            } else {
+                                // something went wrong
+                            }
+                        }
+                    });
+                    Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
+
+                customHandler.postDelayed(this, 10000);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        customHandler.removeCallbacks(sendData);
+    }
+
+
+    public boolean isConnected (){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 

@@ -21,13 +21,6 @@
     <string name="title_activity_ver_todos">Ver Configuraciones</string>
     <string name="title_activity_ver_alarmas">Ver Alarmas</string>
     <string name="title_activity_monitoreo__servidor">monitoreo_Servidor</string>
-    <string name="tituloClima">Climas</string>
-    <string name="actual">actual</string>
-    <string name="maxima">Máxima</string>
-    <string name="minima">Minima</string>
-    <string name="temperatura">temperatura Actual</string>
-    <string name="tempMaxima">temperatura maxima</string>
-    <string name="tempMinima">temperatura minima</string>
     <string name="encenderAlarma">Encender Alarma</string>
     <string name="apagarAlarma">Apagar Alarma</string>
     <string name="encenderFoco">Encender Foco</string>
@@ -36,4 +29,8 @@
     <string name="selBusqueda">Selecciona una Casa para  Buscar</string>
     <string name="title_activity_map_todos">Localizar Casa</string>
     <string name="title_activity_monitoreo_todos">Monitorear Casa</string>
+    <string name="temp">Temperatura Actual:</string>
+    <string name="luz">Intensidad de Luz:</string>
+    <string name="statAlarma">Estatus de Alarma:</string>
+    <string name="statLuz">Estatus de Luz:</string>
 </resources>

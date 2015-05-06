@@ -50,12 +50,9 @@ public class MainActivity extends ActionBarActivity {
     Button monitoreoBtn;
     Button localizarBtn;
     Button veralarma;
-    Button prueba;
-    Button monitoreoServidor;
 
     String tname = "";
     String tcant = "";
-    Bitmap tphoto;
     String tphoto1 = "";
 
     private HouseOperations dao;
@@ -103,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
         monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
         localizarBtn = (Button) findViewById(R.id.localizarBtn);
         veralarma = (Button) findViewById(R.id.botonAlarma);
-        monitoreoServidor = (Button) findViewById(R.id.botonMonitoreoServ);
+
 
         config.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,22 +164,6 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
-
-
-
-        monitoreoServidor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                try {
-                    Intent intent = new Intent(MainActivity.this, monitoreo_Servidor.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Log.e(LOG_TAG, "Failed to send intent", e);
-                }
-            }
-        });
-
 
 
     }

@@ -6,18 +6,5 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tituloClimaTV"
-        android:text="climas"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textColor="#000000" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="427dp"
-        android:id="@+id/listaLV"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>
