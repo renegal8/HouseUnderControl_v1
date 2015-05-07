@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -41,6 +43,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import com.parse.Parse;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 
@@ -54,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
     Button veralarma;
     Button botonOpciones;
     MediaPlayer buttonSound;
+    Boolean bandera;
 
     String tname = "";
     String tcant = "";
@@ -62,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
     private HouseOperations dao;
     private SQLiteDatabase db;
 
-    /*
+
     private int notificationCount;
     private final int MY_NOTIFICATION_ID = 1;
     private final String tickerText = "Notification message";
@@ -71,7 +75,9 @@ public class MainActivity extends ActionBarActivity {
     private Intent notificationIntent;
     private PendingIntent pendingIntent;
     NotificationManager notificationManager;
-    */
+
+    Handler customHandler = new android.os.Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        customHandler.post(sendData);
 
         dao = new HouseOperations(this);
         try {
@@ -101,6 +108,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         config = (Button) findViewById(R.id.boton_configuracion);
+        bandera= false;
         verconfig = (Button) findViewById(R.id.boton_verconfiguracion);
         monitoreoBtn = (Button) findViewById(R.id.monitoreoBtn);
         localizarBtn = (Button) findViewById(R.id.localizarBtn);
@@ -192,8 +200,8 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-/*
-    public void newAlarma(View view) {
+
+    public void newAlarma() {
 
 
         Calendar c = Calendar.getInstance();
@@ -203,33 +211,107 @@ public class MainActivity extends ActionBarActivity {
         SimpleDateFormat df2 = new SimpleDateFormat("HH:mm:ss");
         String fecha = df.format(c.getTime()) + "      " + df2.format(c.getTime());
 
-
         Alarma alarma = new Alarma(fecha, 1);
         dao.addAlarma(alarma);
 
-        Toast.makeText(getApplicationContext(), "Alarma Agregada Exitosamente", Toast.LENGTH_SHORT).show();
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
-        notificationBuilder.setContentTitle(contentTitle);
-        notificationBuilder.setTicker(tickerText);
-        notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
-        notificationBuilder.setContentText(contentText + " (" + ++notificationCount + ")");
-        notificationBuilder.setContentIntent(pendingIntent);
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
-
     }
-*/
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             tname = data.getStringExtra("name");
             tcant = data.getStringExtra("cantidad");
-//            tphoto = (Bitmap) data.getExtras().get("photo");
             tphoto1 = data.getStringExtra("photo");
 
         }
     }
+
+    public boolean isConnected (){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private final Runnable sendData = new Runnable(){
+        public void run(){
+            try {
+
+                if (isConnected()) {
+                    ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
+                    //queryObtencion.fromLocalDatastore();
+                    queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
+
+
+                                String actAlarma = object.get("statAlarma").toString().trim();
+
+                                if(actAlarma.equals("ON"))
+                                {
+                                    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
+                                    notificationBuilder.setContentTitle(contentTitle);
+                                    notificationBuilder.setTicker(tickerText);
+                                    notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+                                    notificationBuilder.setContentText(contentText + " (" + ++notificationCount + ")");
+                                    notificationBuilder.setContentIntent(pendingIntent);
+                                    notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                    notificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+                                   if(!bandera) {
+                                       newAlarma();
+                                       Toast.makeText(getApplicationContext(), "Historial de Alarma Guardado", Toast.LENGTH_SHORT).show();
+                                        bandera = true;
+                                   }
+                                }
+                                else {
+                                    bandera = false;
+                                }
+
+                            }
+                            else {
+                               // Toast.makeText(getApplicationContext(), "No se encontró información en el Servidor", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                } else {
+                    //Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
+
+                customHandler.postDelayed(this, 25000);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        customHandler.removeCallbacks(sendData);
+    }
+
+    @Override
+    protected void onResume(){
+        try {
+            dao.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        super.onResume();
+
+        customHandler.post(sendData);
+    }
+
+
 
 
 }
