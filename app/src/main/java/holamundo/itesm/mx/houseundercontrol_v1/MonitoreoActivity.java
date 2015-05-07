@@ -81,21 +81,27 @@ public class MonitoreoActivity extends ActionBarActivity {
 
         buttonSound = MediaPlayer.create(MonitoreoActivity.this,R.raw.beep);
 
-        ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
-        //queryObtencion.fromLocalDatastore();
-        queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    // object will be your game score
-                    tempTV.setText(object.get("temperatura").toString()+  " Cº");
-                    luzTV.setText(object.get("luz").toString());
-                    statLuzTV.setText(object.get("statLuz").toString());
-                    statAlarmaTV.setText(object.get("statAlarma").toString());
-                } else {
-                    // something went wrong
+        if (isConnected()) {
+            ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
+            //queryObtencion.fromLocalDatastore();
+            queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+
+                        tempTV.setText(object.get("temperatura").toString()+ " Cº");
+                        luzTV.setText(object.get("luz").toString());
+                        statLuzTV.setText(object.get("statLuz").toString());
+                        statAlarmaTV.setText(object.get("statAlarma").toString());
+                        Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(MonitoreoActivity.this, "No se encontró información en el Servidor", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+        }
 
 
         //Declaracion de variables
@@ -111,48 +117,55 @@ public class MonitoreoActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if(encenderAlarmaButton.isPressed()){
+                    if (isConnected()) {
                     buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
                         public void done(ParseObject manual, ParseException e) {
                             if (e == null) {
-                                // Now let's update it with some new data. In this case, only cheatMode and score
-                                // will get sent to the Parse Cloud. playerName hasn't changed.
+
                                 manual.put("enableAlarma", 1);
                                 manual.saveInBackground();
                                 Toast.makeText(MonitoreoActivity.this, "Petición de Encender Alarma Enviada", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
 
 
                 }else if(apagarAlarmaButton.isPressed()){
+                    if (isConnected()) {
                     buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
                         public void done(ParseObject manual, ParseException e) {
                             if (e == null) {
-                                // Now let's update it with some new data. In this case, only cheatMode and score
-                                // will get sent to the Parse Cloud. playerName hasn't changed.
+
                                 manual.put("enableAlarma", 0);
                                 manual.saveInBackground();
                                 Toast.makeText(MonitoreoActivity.this, "Petición de Apagar Alarma Enviada", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
 
 
                 }else if(encenderFocoButton.isPressed()){
+
+                    if (isConnected()) {
                     buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
                         public void done(ParseObject manual, ParseException e) {
                             if (e == null) {
-                                // Now let's update it with some new data. In this case, only cheatMode and score
-                                // will get sent to the Parse Cloud. playerName hasn't changed.
+
                                 manual.put("enableLuz", 1);
                                 manual.saveInBackground();
                                 Toast.makeText(MonitoreoActivity.this, "Petición de Encender Luz Enviada", Toast.LENGTH_SHORT).show();
@@ -160,22 +173,29 @@ public class MonitoreoActivity extends ActionBarActivity {
                         }
                     });
 
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
+
                 }else if(apagarFocoButton.isPressed()){
+
+                if (isConnected()) {
                     buttonSound.start();
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Manual");
 
                     query.getInBackground("6qhB3uYqqB", new GetCallback<ParseObject>() {
                         public void done(ParseObject manual, ParseException e) {
                             if (e == null) {
-                                // Now let's update it with some new data. In this case, only cheatMode and score
-                                // will get sent to the Parse Cloud. playerName hasn't changed.
+
                                 manual.put("enableLuz", 0);
                                 manual.saveInBackground();
                                 Toast.makeText(MonitoreoActivity.this, "Petición de Apagar Luz Enviada", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    
+                } else {
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                }
                 }
 
             }
@@ -217,24 +237,25 @@ public class MonitoreoActivity extends ActionBarActivity {
     private final Runnable sendData = new Runnable(){
         public void run(){
             try {
-                //prepare and send the data here..
+
                 if (isConnected()) {
                     ParseQuery<ParseObject> queryObtencion = ParseQuery.getQuery("Monitoreo");
                     //queryObtencion.fromLocalDatastore();
                     queryObtencion.getInBackground("G1ejbjTEOj", new GetCallback<ParseObject>() {
                         public void done(ParseObject object, ParseException e) {
                             if (e == null) {
-                                // object will be your game score
+
                                 tempTV.setText(object.get("temperatura").toString()+ " Cº");
                                 luzTV.setText(object.get("luz").toString());
                                 statLuzTV.setText(object.get("statLuz").toString());
                                 statAlarmaTV.setText(object.get("statAlarma").toString());
-                            } else {
-                                // something went wrong
+                                Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(MonitoreoActivity.this, "No se encontró información en el Servidor", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
                 }
@@ -246,6 +267,14 @@ public class MonitoreoActivity extends ActionBarActivity {
             }
         }
     };
+
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        customHandler.removeCallbacks(sendData);
+        //Log.i(LOG_TAG, "Entered the onStop() method");
+    }
 
     @Override
     protected void onDestroy() {
@@ -296,12 +325,15 @@ public class MonitoreoActivity extends ActionBarActivity {
         }
 
         super.onResume();
+
+        customHandler.post(sendData);
     }
 
     @Override
     protected void onPause() {
         dao.close();
         super.onPause();
+        customHandler.removeCallbacks(sendData);
     }
 
     class MyGestureDetector implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
