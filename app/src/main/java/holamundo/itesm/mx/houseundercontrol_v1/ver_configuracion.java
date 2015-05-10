@@ -3,11 +3,14 @@ package holamundo.itesm.mx.houseundercontrol_v1;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +23,7 @@ public class ver_configuracion extends ActionBarActivity {
     ImageView casaIV;
     Bitmap imageBP;
     Bitmap fotoBit;
-
+    ProgressBar progressBar;
     int id;
     String name;
     String cantCuartos;
@@ -30,7 +33,7 @@ public class ver_configuracion extends ActionBarActivity {
     String address;
     HouseOperations dao;
     List<House> listaHouse;
-
+    String TAG = "Ver Configuración Activity";
 
     private HouseHelper dbHelper;
     private SQLiteDatabase db;
@@ -46,6 +49,7 @@ public class ver_configuracion extends ActionBarActivity {
         TextView addressTV = (TextView) findViewById(R.id.addressValueTV);
         TextView cantidadTV = (TextView) findViewById(R.id.cantidadValueTV);
         casaIV = (ImageView) findViewById(R.id.casaIV);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         listaHouse = dao.getAll();
 
@@ -54,17 +58,13 @@ public class ver_configuracion extends ActionBarActivity {
         House house = listaHouse.get(id);
 
         byte[] foto =  house.getFoto();
-        //        int idFoto =  house.getId();
-        //        String fecha =  house.getFecha();
-
         fotoBit = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+
+        new LoadImage().execute(R.mipmap.ic_launcher);
 
         nombreTV.setText(String.valueOf(house.getName()));
         addressTV.setText(String.valueOf( house.getAddress()));
         cantidadTV.setText(String.valueOf( house.getCantCuartos()));
-        casaIV.setImageBitmap(fotoBit);
-
-
 
 
     }
@@ -84,6 +84,39 @@ public class ver_configuracion extends ActionBarActivity {
     protected void onPause() {
         dao.close();
         super.onPause();
+    }
+    class LoadImage extends AsyncTask <Integer, Integer, Bitmap>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected Bitmap doInBackground(Integer... params){
+            Bitmap imagen = BitmapFactory.decodeResource(getResources(),params[0]);
+            for(int i = 0; i < 25; i++)
+            {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e){
+                    Log.e(TAG, e.toString());
+                }
+                publishProgress(i*5);
+            }
+            return imagen;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setProgress(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            progressBar.setVisibility(ProgressBar.INVISIBLE);
+            casaIV.setImageBitmap(fotoBit);
+        }
     }
 
 }

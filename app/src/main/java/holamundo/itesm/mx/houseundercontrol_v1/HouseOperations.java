@@ -19,7 +19,7 @@ public class HouseOperations {
     private SQLiteDatabase db;
     private HouseHelper dbHelper;
 
-    private static final String TABLE_PRODUCT = "houses";
+    private static final String TABLE_HOUSE = "houses";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_CANT = "cantCuartos";
@@ -59,11 +59,11 @@ public class HouseOperations {
         values.put(COLUMN_FECHA, house.getFecha());
         values.put(COLUMN_ADDRESS, house.getAddress());
 
-        db.insert(TABLE_PRODUCT, null, values);
+        db.insert(TABLE_HOUSE, null, values);
     }
 
     public House findProduct(String name) {
-        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE " + COLUMN_NAME + " = \"" + name + "\"";
+        String query = "SELECT * FROM " + TABLE_HOUSE  + " WHERE " + COLUMN_NAME + " = \"" + name + "\"";
 
         db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -93,7 +93,7 @@ public class HouseOperations {
 
         db = dbHelper.getWritableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUCT;
+        String selectQuery = "SELECT * FROM " + TABLE_HOUSE ;
         //Toast.makeText(context1, selectQuery, Toast.LENGTH_SHORT).show();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -124,7 +124,7 @@ public class HouseOperations {
 
         db = dbHelper.getWritableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUCT;
+        String selectQuery = "SELECT * FROM " + TABLE_HOUSE ;
         //Toast.makeText(context1, selectQuery, Toast.LENGTH_SHORT).show();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -146,6 +146,23 @@ public class HouseOperations {
 
         cursor.close();
         return listaHouses;
+    }
+
+    public boolean deleteHouse(String houseName) {
+        boolean result = false;
+
+        String query = "SELECT * FROM "+TABLE_HOUSE  +
+                " WHERE "+COLUMN_NAME + " = \"" + houseName + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            int id = Integer.parseInt(cursor.getString(0));
+            db.delete(TABLE_HOUSE , COLUMN_ID + " = ?", new String[] {String.valueOf(id) });
+            cursor.close();
+            result = true;
+        }
+        return result;
     }
 
 

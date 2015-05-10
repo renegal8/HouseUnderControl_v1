@@ -42,4 +42,12 @@ public class HouseListAdapter extends ArrayAdapter<House> {
         }
         return row;
     }
+
+    public void update(List<House> newlist) {
+        lista.clear();
+        lista.addAll(newlist);
+        this.notifyDataSetChanged();
+    }
 }
+
+
