@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import static holamundo.itesm.mx.houseundercontrol_v1.R.id.sonidoButton;
@@ -32,7 +33,7 @@ public class OpcionesActivity extends ActionBarActivity {
         tb = (ToggleButton)this.findViewById(sonidoButton);
 
 
-
+        Toast.makeText(getApplicationContext(), "Presione el botón para activar/desactivar el sonido de la aplicación", Toast.LENGTH_LONG).show();
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());

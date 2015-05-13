@@ -249,7 +249,7 @@ public class MonitoreoActivity extends ActionBarActivity {
                                 luzTV.setText(object.get("luz").toString());
                                 statLuzTV.setText(object.get("statLuz").toString());
                                 statAlarmaTV.setText(object.get("statAlarma").toString());
-                                Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Toast.makeText(MonitoreoActivity.this, "No se encontró información en el Servidor", Toast.LENGTH_SHORT).show();
@@ -257,7 +257,7 @@ public class MonitoreoActivity extends ActionBarActivity {
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No hay conexion", Toast.LENGTH_SHORT).show();
                 }
 
                 customHandler.postDelayed(this, 10000);

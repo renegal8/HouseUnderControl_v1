@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,6 +33,8 @@ public class MapActivity extends ActionBarActivity {
 
         final TextView addressTV = (TextView)findViewById(R.id.addressTV);
         final Button localizarBtn = (Button) findViewById(R.id.localizarBtn);
+
+        Toast.makeText(getApplicationContext(), "Presione el botón para localizar su casa en Google Maps ", Toast.LENGTH_LONG).show();
 
         listaHouse = dao.getHouse();
 

@@ -31,6 +31,8 @@ public class ver_todos extends ActionBarActivity {
             e.printStackTrace();
         }
 
+        Toast.makeText(getApplicationContext(), "De click en una casa para ver su información. Deje presionado una casa para eliminarla.", Toast.LENGTH_LONG).show();
+
         final ListView lista = (ListView) findViewById(R.id.listView);
         final HouseListAdapter houseListAdapter = new HouseListAdapter(getApplicationContext(), R.layout.activity_rowhouse, getApplianceListView());
         lista.setAdapter(houseListAdapter);
