@@ -23,7 +23,7 @@ public class HouseListAdapter extends ArrayAdapter<House> {
         this.lista=house;
         this.layoutResourceId= resource;
     }
-    //PRUEBA
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
