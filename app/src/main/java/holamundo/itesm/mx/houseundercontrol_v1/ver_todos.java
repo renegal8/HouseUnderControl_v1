@@ -43,6 +43,7 @@ public class ver_todos extends ActionBarActivity {
                 Intent unoIntent = new Intent(ver_todos.this, ver_configuracion.class);
                 unoIntent.putExtra("position", position);
                 startActivity(unoIntent);
+                finish();
             }
         };
         lista.setOnItemClickListener(itemListener);

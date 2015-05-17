@@ -60,6 +60,24 @@ public class HouseOperations {
         values.put(COLUMN_ADDRESS, house.getAddress());
 
         db.insert(TABLE_HOUSE, null, values);
+
+    }
+
+    public void updateHouse(House house) {
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, house.getName());
+        values.put(COLUMN_FECHA, house.getFecha());
+        values.put(COLUMN_ADDRESS, house.getAddress());
+
+        //db.insert(TABLE_HOUSE, null, values);
+        String strFilter = "_id=" + house.getId();
+        //db.update("titles", args, strFilter, null);
+        db.update(TABLE_HOUSE, values,strFilter,null);
+
+
+        //ContentValues args = new ContentValues();
+        //args.put(KEY_TITLE, title);
     }
 
     public House findProduct(String name) {
