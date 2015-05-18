@@ -31,6 +31,13 @@ public class House {
         this.address = address;
     }
 
+    public House(int id, String name, String fecha, String address) {
+        this.id = id;
+        this.name = name;
+        this.fecha = fecha;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }

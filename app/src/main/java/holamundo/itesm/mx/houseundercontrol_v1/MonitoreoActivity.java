@@ -48,6 +48,7 @@ public class MonitoreoActivity extends ActionBarActivity {
     TextView luzTV;
     TextView statLuzTV;
     TextView statAlarmaTV;
+    TextView txtRecom;
 
     HouseOperations dao;
     List<House> listaHouse;
@@ -78,6 +79,7 @@ public class MonitoreoActivity extends ActionBarActivity {
         luzTV = (TextView) findViewById(R.id.luzValueTV);
         statLuzTV = (TextView) findViewById(R.id.statLuzValueTV);
         statAlarmaTV = (TextView) findViewById(R.id.statAlarmaValueTV);
+        txtRecom = (TextView) findViewById(R.id.txtRecom);
 
         buttonSound = MediaPlayer.create(MonitoreoActivity.this,R.raw.beep);
 
@@ -88,10 +90,17 @@ public class MonitoreoActivity extends ActionBarActivity {
                 public void done(ParseObject object, ParseException e) {
                     if (e == null) {
 
-                        tempTV.setText(object.get("temperatura").toString()+ " Cº");
-                        luzTV.setText(object.get("luz").toString());
+                        tempTV.setText(object.get("temperatura").toString()+ " ºC");
+                        luzTV.setText(object.get("luz").toString()+ " Candelas");
                         statLuzTV.setText(object.get("statLuz").toString());
                         statAlarmaTV.setText(object.get("statAlarma").toString());
+                        if(Integer.parseInt(object.get("luz").toString())<=400) {
+                            txtRecom.setText("Luz baja, abrir cortina para alumbrar");
+                        } else if ((Integer.parseInt(object.get("luz").toString())>400)&&(Integer.parseInt(object.get("luz").toString())<=800)){
+                            txtRecom.setText("Intensidad de luz adecuada");
+                        } else if ((Integer.parseInt(object.get("luz").toString())>800)){
+                            txtRecom.setText("Casa muy alumbrada, apagar luz");
+                        }
                         //Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_LONG).show();
                     }
                     else {
@@ -249,6 +258,13 @@ public class MonitoreoActivity extends ActionBarActivity {
                                 luzTV.setText(object.get("luz").toString()+ " Candelas");
                                 statLuzTV.setText(object.get("statLuz").toString());
                                 statAlarmaTV.setText(object.get("statAlarma").toString());
+                                if(Integer.parseInt(object.get("luz").toString())<=400) {
+                                    txtRecom.setText("Luz baja, abrir cortina para alumbrar");
+                                } else if ((Integer.parseInt(object.get("luz").toString())>400)&&(Integer.parseInt(object.get("luz").toString())<=800)){
+                                    txtRecom.setText("Intensidad de luz adecuada");
+                                } else if ((Integer.parseInt(object.get("luz").toString())>800)){
+                                    txtRecom.setText("Casa muy alumbrada, apagar luz");
+                                }
                                 Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_SHORT).show();
                             }
                             else {

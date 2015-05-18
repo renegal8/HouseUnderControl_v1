@@ -28,7 +28,7 @@
             android:textSize="20dp"
             android:layout_marginLeft="40dp"/>
 
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -73,7 +73,7 @@
             android:textSize="20dp"
             android:layout_marginLeft="40dp"/>
 
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
