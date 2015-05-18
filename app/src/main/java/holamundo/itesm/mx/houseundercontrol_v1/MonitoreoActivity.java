@@ -245,8 +245,8 @@ public class MonitoreoActivity extends ActionBarActivity {
                         public void done(ParseObject object, ParseException e) {
                             if (e == null) {
 
-                                tempTV.setText(object.get("temperatura").toString()+ " Cº");
-                                luzTV.setText(object.get("luz").toString());
+                                tempTV.setText(object.get("temperatura").toString()+ " ºC");
+                                luzTV.setText(object.get("luz").toString()+ " Candelas");
                                 statLuzTV.setText(object.get("statLuz").toString());
                                 statAlarmaTV.setText(object.get("statAlarma").toString());
                                 Toast.makeText(getApplicationContext(), "Información Actualizada", Toast.LENGTH_SHORT).show();

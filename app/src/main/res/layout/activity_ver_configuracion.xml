@@ -84,7 +84,7 @@
 
         <ImageView
             android:layout_width="328dp"
-            android:layout_height="326dp"
+            android:layout_height="270dp"
             android:id="@+id/casaIV" />
     </LinearLayout>
 
@@ -95,5 +95,12 @@
         android:id="@+id/progressBar"
 
         android:indeterminate="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:id="@+id/buttonEdit"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

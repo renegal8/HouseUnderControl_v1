@@ -30,8 +30,12 @@
     <string name="title_activity_monitoreo_todos">Monitorear Casa</string>
     <string name="temp">Temperatura Actual:</string>
     <string name="luz">Intensidad de Luz:</string>
+    <string name="fecha">Fecha  Activación:</string>
     <string name="statAlarma">Estatus de Alarma:</string>
-    <string name="statLuz">Estatus de Luz:</string>
+    <string name="statLuz">Estatus de Foco:</string>
     <string name="title_activity_opciones">OpcionesActivity</string>
+    <string name="title_activity_edit_configuration">Editar Configuración</string>
+    <string name="edit">Editar Configuración</string>
+    <string name="title_activity_ver_informacion_alarma">Ver Información de Alarma</string>
 
 </resources>

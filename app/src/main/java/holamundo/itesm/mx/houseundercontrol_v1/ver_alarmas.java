@@ -33,6 +33,16 @@ public class ver_alarmas extends ActionBarActivity {
         final AlarmaListAdapter alarmaListAdapter = new AlarmaListAdapter(getApplicationContext(), R.layout.activity_rowalarma, getApplianceListView());
         lista.setAdapter(alarmaListAdapter);
 
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent unoIntent = new Intent(ver_alarmas.this, VerInformacionAlarma.class);
+                unoIntent.putExtra("position", position);
+                startActivity(unoIntent);
+            }
+        };
+        lista.setOnItemClickListener(itemListener);
+
     }
 
     public List<Alarma> getApplianceListView() {

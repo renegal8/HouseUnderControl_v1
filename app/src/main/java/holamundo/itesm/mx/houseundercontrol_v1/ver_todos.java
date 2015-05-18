@@ -18,6 +18,7 @@ import java.util.List;
 public class ver_todos extends ActionBarActivity {
 
     HouseOperations dao;
+    HouseListAdapter houseListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,11 @@ public class ver_todos extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        Toast.makeText(getApplicationContext(), "De click en una casa para ver su información. Deje presionado una casa para eliminarla.", Toast.LENGTH_LONG).show();
 
         final ListView lista = (ListView) findViewById(R.id.listView);
-        final HouseListAdapter houseListAdapter = new HouseListAdapter(getApplicationContext(), R.layout.activity_rowhouse, getApplianceListView());
+        houseListAdapter = new HouseListAdapter(getApplicationContext(), R.layout.activity_rowhouse, getApplianceListView());
+       if(!houseListAdapter.isEmpty())
+           Toast.makeText(getApplicationContext(), "De click en una casa para ver su información. Deje presionado una casa para eliminarla.", Toast.LENGTH_LONG).show();
         lista.setAdapter(houseListAdapter);
 
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
@@ -88,6 +90,7 @@ public class ver_todos extends ActionBarActivity {
     protected void onResume() {
         try {
             dao.open();
+            houseListAdapter.update(getApplianceListView());
         } catch (SQLException e) {
             e.printStackTrace();
         }

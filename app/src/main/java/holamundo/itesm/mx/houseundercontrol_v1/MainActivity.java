@@ -63,6 +63,10 @@ public class MainActivity extends ActionBarActivity {
     String tcant = "";
     String tphoto1 = "";
 
+    String t="";
+    String l="";
+    String st="";
+
     private HouseOperations dao;
     private SQLiteDatabase db;
 
@@ -211,7 +215,7 @@ public class MainActivity extends ActionBarActivity {
         SimpleDateFormat df2 = new SimpleDateFormat("HH:mm:ss");
         String fecha = df.format(c.getTime()) + "      " + df2.format(c.getTime());
 
-        Alarma alarma = new Alarma(fecha, 1);
+        Alarma alarma = new Alarma(fecha, 1,st,l,t);
         dao.addAlarma(alarma);
 
     }
@@ -250,8 +254,13 @@ public class MainActivity extends ActionBarActivity {
 
                                 String actAlarma = object.get("statAlarma").toString().trim();
 
+
                                 if(actAlarma.equals("ON"))
                                 {
+                                    t=object.get("temperatura").toString();
+                                    l=object.get("luz").toString();
+                                    st=object.get("statLuz").toString();
+
                                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
                                     notificationBuilder.setContentTitle(contentTitle);
                                     notificationBuilder.setTicker(tickerText);

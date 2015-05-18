@@ -32,6 +32,9 @@ public class HouseOperations {
     private static final String COLUMNALARMA_ID = "_id";
     private static final String COLUMNALARMA_FECHA = "fecha";
     private static final String COLUMNALARMA_IDHOUSE = "idHouse";
+    private static final String COLUMNALARMA_STATFOCO = "statFoco";
+    private static final String COLUMNALARMA_LUZ = "intensidadLuz";
+    private static final String COLUMNALARMA_TEMP = "temperatura";
 
     Context context1;
 
@@ -165,6 +168,31 @@ public class HouseOperations {
         return result;
     }
 
+    public boolean editHouse(House house, String houseName) {
+        boolean result = false;
+
+        String query = "SELECT * FROM "+TABLE_HOUSE  +
+                " WHERE "+COLUMN_NAME + " = \"" + houseName + "\"";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            int id = Integer.parseInt(cursor.getString(0));
+
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME, house.getName());
+            values.put(COLUMN_CANT, house.getCantCuartos());
+            values.put(COLUMN_FOTO, house.getFoto());
+            values.put(COLUMN_ID_FOTO, house.getIdFoto());
+            values.put(COLUMN_FECHA, house.getFecha());
+            values.put(COLUMN_ADDRESS, house.getAddress());
+
+            db.update(TABLE_HOUSE,values,COLUMN_ID + "=" + id,null);
+            cursor.close();
+            result = true;
+        }
+        return result;
+    }
 
 
     public void addAlarma(Alarma alarma) {
@@ -173,7 +201,9 @@ public class HouseOperations {
 
         values2.put(COLUMNALARMA_FECHA,alarma.getFecha());
         values2.put(COLUMNALARMA_IDHOUSE, alarma.getIdHouse());
-
+        values2.put(COLUMNALARMA_STATFOCO, alarma.getStatuzFoco());
+        values2.put(COLUMNALARMA_LUZ, alarma.getIntensidadLuz());
+        values2.put(COLUMNALARMA_TEMP, alarma.getTemperatura());
         db.insert(TABLE_ALARMA, null, values2);
     }
 
@@ -188,7 +218,7 @@ public class HouseOperations {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                Alarma alarma = new Alarma( cursor.getString(1), Integer.parseInt(cursor.getString(2)));
+                Alarma alarma = new Alarma(cursor.getString(1), Integer.parseInt(cursor.getString(2)),cursor.getString(3),cursor.getString(4),cursor.getString(5));
                 //Toast.makeText(context1, cursor.getString(0), Toast.LENGTH_SHORT).show();
                 listaAlarmas.add(alarma);
 

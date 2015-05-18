@@ -24,6 +24,10 @@ public class HouseHelper extends SQLiteOpenHelper{
     private static final String COLUMNALARMA_ID = "_id";
     private static final String COLUMNALARMA_FECHA = "fecha";
     private static final String COLUMNALARMA_IDHOUSE = "idHouse";
+    private static final String COLUMNALARMA_STATFOCO = "statFoco";
+    private static final String COLUMNALARMA_LUZ = "intensidadLuz";
+    private static final String COLUMNALARMA_TEMP = "temperatura";
+
 
     public HouseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,7 +41,8 @@ public class HouseHelper extends SQLiteOpenHelper{
         arg0.execSQL(CREATE_PRODUCTS_TABLE);
 
         String CREATE_TABLE = "CREATE TABLE "+TABLE_ALARMA+"(" + COLUMNALARMA_ID + " INTEGER PRIMARY KEY, " +
-                COLUMNALARMA_FECHA + " TEXT, "+COLUMNALARMA_IDHOUSE+" INTEGER)";
+                COLUMNALARMA_FECHA + " TEXT, "+ COLUMNALARMA_IDHOUSE+" INTEGER, "
+                +COLUMNALARMA_STATFOCO+" TEXT, "+COLUMNALARMA_LUZ+" TEXT, "+ COLUMNALARMA_TEMP+" TEXT)";
         arg0.execSQL(CREATE_TABLE);
     }
 

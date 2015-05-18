@@ -26,11 +26,11 @@
     <uses-permission android:name="holamundo.itesm.mx.houseundercontrol_v1.permission.C2D_MESSAGE" />
 
     <application
+        android:name=".HouseUnderControl"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".HouseUnderControl">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -43,7 +43,7 @@
         <activity
             android:name=".activity_config"
             android:label="@string/title_activity_activity_config"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".ver_configuracion"
@@ -93,7 +93,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-<!--                   IMPORTANT: Change "com.parse.tutorials.pushnotifications" to match your app's package name. -->
+                <!-- IMPORTANT: Change "com.parse.tutorials.pushnotifications" to match your app's package name. -->
                 <category android:name="holamundo.itesm.mx.houseundercontrol_v1" />
             </intent-filter>
         </receiver>
@@ -115,6 +115,14 @@
         <activity
             android:name=".OpcionesActivity"
             android:label="@string/title_activity_opciones" >
+        </activity>
+        <activity
+            android:name=".editConfiguration"
+            android:label="@string/title_activity_edit_configuration" >
+        </activity>
+        <activity
+            android:name=".VerInformacionAlarma"
+            android:label="@string/title_activity_ver_informacion_alarma" >
         </activity>
     </application>
 
